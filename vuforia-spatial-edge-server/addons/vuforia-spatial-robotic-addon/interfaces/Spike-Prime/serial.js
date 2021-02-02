@@ -22,7 +22,7 @@ const parser = new parsers.Readline({
 })
 
 // The port to connect to (CHANGE TO YOUR SERAIL PORT)
-const port = new SerialPort('/dev/tty.LEGOHub380B3CAA5E34-Ser', { 
+const port = new SerialPort('/dev/ttyACM0', { 
 	baudRate: 115200,
 })
 // var test = port._readableState;
