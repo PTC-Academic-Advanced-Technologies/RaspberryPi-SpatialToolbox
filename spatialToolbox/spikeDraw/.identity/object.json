@@ -1,0 +1,222 @@
+{
+	"objectId": "spikeDraw85iiz4ignbtn",
+	"name": "spikeDraw",
+	"matrix": [],
+	"isAnchor": false,
+	"ip": "192.168.7.106",
+	"version": "3.2.2",
+	"deactivated": false,
+	"protocol": "R2",
+	"tcs": "1OJJAP",
+	"visible": false,
+	"visibleText": false,
+	"visibleEditing": false,
+	"memory": {},
+	"memoryCameraMatrix": {},
+	"memoryProjectionMatrix": {},
+	"frames": {
+		"spikeDraw85iiz4ignbtnkineticAR": {
+			"objectId": "spikeDraw85iiz4ignbtn",
+			"name": "kineticAR",
+			"visualization": "ar",
+			"ar": {
+				"x": 0,
+				"y": 0,
+				"scale": 1,
+				"matrix": []
+			},
+			"screen": {
+				"x": 0,
+				"y": 0,
+				"scale": 1
+			},
+			"visible": false,
+			"visibleText": false,
+			"visibleEditing": false,
+			"developer": true,
+			"links": {},
+			"nodes": {
+				"spikeDraw85iiz4ignbtnkineticARkineticNode1": {
+					"name": "kineticNode1",
+					"objectId": "spikeDraw85iiz4ignbtn",
+					"frameId": "spikeDraw85iiz4ignbtnkineticAR",
+					"data": {
+						"value": 0,
+						"mode": "f",
+						"unit": "",
+						"unitMin": 0,
+						"unitMax": 1
+					},
+					"x": -53,
+					"y": 11,
+					"scale": 1,
+					"matrix": [],
+					"type": "storeData",
+					"stress": 0,
+					"privateData": {},
+					"publicData": {
+						"CheckpointTriggered": 2,
+						"CheckpointStopped": 2
+					},
+					"frameSizeX": 100,
+					"frameSizeY": 100
+				},
+				"spikeDraw85iiz4ignbtnkineticARkineticNode2": {
+					"name": "kineticNode2",
+					"objectId": "spikeDraw85iiz4ignbtn",
+					"frameId": "spikeDraw85iiz4ignbtnkineticAR",
+					"data": {
+						"value": 0,
+						"mode": "f",
+						"unit": "",
+						"unitMin": 0,
+						"unitMax": 1
+					},
+					"x": -93,
+					"y": 46,
+					"scale": 1,
+					"matrix": [],
+					"type": "storeData",
+					"stress": 0,
+					"privateData": {},
+					"publicData": {
+						"pathData": [
+							{
+								"index": 0,
+								"checkpoints": []
+							}
+						]
+					},
+					"frameSizeX": 100,
+					"frameSizeY": 100
+				},
+				"spikeDraw85iiz4ignbtnkineticARkineticNode4": {
+					"name": "kineticNode4",
+					"objectId": "spikeDraw85iiz4ignbtn",
+					"frameId": "spikeDraw85iiz4ignbtnkineticAR",
+					"data": {
+						"value": 0,
+						"mode": "f",
+						"unit": "",
+						"unitMin": 0,
+						"unitMax": 1
+					},
+					"x": 86,
+					"y": 27,
+					"scale": 1,
+					"matrix": [],
+					"type": "storeData",
+					"stress": 0,
+					"privateData": {},
+					"publicData": {
+						"ClearPath": true
+					},
+					"frameSizeX": 100,
+					"frameSizeY": 100
+				}
+			},
+			"location": "local",
+			"src": "editor",
+			"privateData": {},
+			"publicData": {},
+			"staticCopy": false,
+			"distanceScale": 1,
+			"groupID": null,
+			"tool": {
+				"addon": "vuforia-spatial-robotic-addon",
+				"interface": "Spike-Drawing",
+				"tool": "drawing"
+			}
+		},
+		"spikeDraw85iiz4ignbtnbuttonOnMw86s58yb6p7": {
+			"objectId": "spikeDraw85iiz4ignbtn",
+			"name": "buttonOnMw86s58yb6p7",
+			"visualization": "ar",
+			"ar": {
+				"x": -39.6286560567571,
+				"y": 22.401393915266745,
+				"scale": 0.3989965380627859,
+				"matrix": [
+					0.9912520194374128,
+					0.05534513663283991,
+					0.1332525427139628,
+					0.00001565750988952782,
+					0.0019079150379188725,
+					0.909027503288808,
+					-0.40857404907127304,
+					-0.0000026411824556073216,
+					-0.06550500282681426,
+					0.7794155448789581,
+					1.6650139214157775,
+					0.0009007700682518438,
+					85.75225711479379,
+					69.19802617836103,
+					194.5708127890466,
+					0.642358657407982
+				]
+			},
+			"screen": {
+				"x": 0,
+				"y": 0,
+				"scale": 0.5
+			},
+			"visible": false,
+			"visibleText": false,
+			"visibleEditing": false,
+			"developer": true,
+			"links": {},
+			"nodes": {
+				"spikeDraw85iiz4ignbtnbuttonOnMw86s58yb6p7value": {
+					"name": "value",
+					"objectId": "spikeDraw85iiz4ignbtn",
+					"frameId": "spikeDraw85iiz4ignbtnbuttonOnMw86s58yb6p7",
+					"data": {
+						"value": 1,
+						"mode": "f",
+						"unit": false,
+						"unitMin": 0,
+						"unitMax": 1
+					},
+					"x": 0,
+					"y": 0,
+					"scale": 0.25,
+					"matrix": [],
+					"type": "node",
+					"src": "",
+					"stress": 0,
+					"privateData": {},
+					"publicData": {},
+					"lockPassword": null,
+					"lockType": null,
+					"lastEditor": "UcN5z4oh",
+					"processedData": {
+						"value": 1,
+						"mode": "f",
+						"unit": false,
+						"unitMin": 0,
+						"unitMax": 1
+					}
+				}
+			},
+			"location": "global",
+			"src": "buttonOn",
+			"privateData": {},
+			"publicData": {},
+			"staticCopy": false,
+			"distanceScale": 1,
+			"groupID": null,
+			"uuid": "spikeDraw85iiz4ignbtnbuttonOnMw86s58yb6p7"
+		}
+	},
+	"framesHistory": {},
+	"visualization": "ar",
+	"zone": "",
+	"targetSize": {
+		"width": 0.14,
+		"height": 0.212173
+	},
+	"isWorldObject": false,
+	"timestamp": null,
+	"port": 8080,
+	"developer": true
+}
