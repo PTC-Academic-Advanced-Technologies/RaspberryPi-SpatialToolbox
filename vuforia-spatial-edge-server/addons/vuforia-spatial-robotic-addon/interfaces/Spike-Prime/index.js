@@ -15,7 +15,6 @@ const fetch = require("node-fetch");
 var serial = require('./serial.js');
 var server = require('@libraries/hardwareInterfaces');
 var settings = server.loadHardwareInterface(__dirname);
-var noble = require('@abandonware/noble');
 
 var colors = ["black", "violet", "blue", "cyan", "green", "yellow", "red", "white"]
 var portLetters = ["A", "B", "C", "D", "E", "F"]
@@ -34,9 +33,9 @@ exports.configurable = true;
 // Send the initialize file to the Spike Prime, which determines motor/sensor ports
 
 serial.openPort()
-setTimeout(() => {serial.sendFile('initialize.py')}, 5000) // CHANGED HERE --> Reverted the times back to original
-setTimeout(() => {serial.sendFile('functions.py')}, 6500) // CHANGED HERE --> Reverted the times back to original
-setTimeout(() => {initializePorts()}, 8000) // CHANGED HERE --> Reverted the times back to original
+setTimeout(() => {serial.sendFile('initialize.py')}, 10000) // CHANGED HERE --> Reverted the times back to original
+setTimeout(() => {serial.sendFile('functions.py')}, 13000) // CHANGED HERE --> Reverted the times back to original
+setTimeout(() => {initializePorts()}, 16000) // CHANGED HERE --> Reverted the times back to original
 
 if (exports.enabled){
     // Code executed when your robotic addon is enabled
@@ -399,7 +398,7 @@ function updateEvery(i, time){
 
 // Wait for the connection to be established with the Spike Prime before starting up
 server.addEventListener("initialize", function () {
-    if (exports.enabled) setTimeout(() => { startHardwareInterface() }, 10000)
+    if (exports.enabled) setTimeout(() => { startHardwareInterface() }, 20000)
 });
 
 // Stop motors on server shutdown
