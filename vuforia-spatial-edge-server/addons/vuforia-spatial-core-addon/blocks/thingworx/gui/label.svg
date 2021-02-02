@@ -1,0 +1,18 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 216 120">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #75fbfd;
+      }
+      .st0{fill:#75FBFD;}
+    </style>
+  </defs>
+  <title>icon</title>
+
+  <rect x="180" class="st0" width="6" height="17"/>
+  <rect x="30" class="st0" width="6" height="17"/>
+  <rect x="100" y="100" class="st0" width="6" height="17"/>
+  <g class="cls-1">
+    <text x="1%" y="60%" font-size="34" font-family="sans-serif" font-weight="bold" >THINGWORX</text>
+  </g>
+</svg>

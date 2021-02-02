@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="objectDefaultFiles/object.js"></script>
+    <script src="objectDefaultFiles/pep.min.js"></script>
+    <script src="objectDefaultFiles/envelopeContents.js"></script>
+
+    <meta charset="UTF-8">
+    <title>airtable</title>
+    <script src='Airtable.js'></script>
+    <style> 
+        /* line 11 - 89 modify stylings for both show/hide and sender/receiver toggles */
+        .switch {  
+          position: relative;
+          display: inline-block;
+          width: 230px;
+          height: 60px;
+        }
+
+        .switch input {display:none;}
+
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #ca2222;
+          -webkit-transition: .4s;
+          transition: .4s;
+          width: 230px;
+          height: 60px;
+        }
+
+        .slider:before {
+          position: absolute;
+          content: "";
+          height: 40px;
+          width: 40px;
+          left: 10px;
+          bottom: 11px;
+          background-color: white;
+          -webkit-transition: .4s;
+          transition: .4s;
+        }
+
+        input:checked + .slider {
+          background-color: #2ab934;
+        }
+
+        input:focus + .slider {
+          box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+          -webkit-transform: translateX(170px);
+          -ms-transform: translateX(170px);
+          transform: translateX(170px);
+        }
+
+        .on
+        {
+          display: none;
+        }
+
+        .on, .off
+        {
+          color: white;
+          position: absolute;
+          transform: translate(-50%,-50%);
+          top: 50%;
+          left: 50%;
+          font-size: 20px;
+          font-family: Verdana, sans-serif;
+        }
+
+        input:checked+ .slider .on
+        {display: block;}
+
+        input:checked + .slider .off
+        {display: none;}
+
+        /* rounded sliders */
+        .slider.round {
+          border-radius: 34px;
+        }
+
+        .slider.round:before {
+          border-radius: 50%;}
+
+        @font-face {
+            font-family: 'Roboto';
+            src: url('resources/roboto.ttf');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Roboto';
+            src: url('resources/roboto-bold.ttf');
+            font-weight: bold;
+            font-style: normal;
+        }
+        #at_var {
+            cursor: pointer;
+            font-family: "Roboto", "Avenir", "Futura", Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 32px;
+            color: rgb(45,255,255);
+            font-weight: bold;
+            text-align: center;
+            -webkit-text-security: none;
+        }
+        #toggle {
+            cursor: pointer;
+            font-family: "Roboto", "Avenir", "Futura", Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 32px;
+            color: rgb(45,255,255);
+            font-weight: bold;
+            text-align: center;
+            -webkit-text-security: none;
+        }
+        .boxed {
+            border: 12px solid #14e600;
+            width: 45%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body style="position: relative; width: 200%; height: 300%">
+
+<div class="boxed">
+    <div id="at_var" contenteditable>Enter Variable</div>
+</div>
+<br>
+
+<!-- toggle for sender/receiver -->
+<div class="switch" style="left: 100px">
+    <input type="checkbox" id="toggle_switch" unchecked>
+    <div class="slider round" id="toggle" contenteditable>
+        <span class="on">SENDER</span>
+        <span class="off">RECEIVER</span>
+    </div>
+</div>
+<br>
+
+<script>
+    // bools is used to help know if user is trying to input a value within the variable text box
+    var at_var_box = false; 
+
+    // Global to be used in getvalue 
+    var write_value = 0;
+
+    var isListeningForKeyboard = false;
+
+    var properties = {
+        value: 0,
+        unitMax: 255,
+        unitMin: -255,
+        unit: ""
+    };
+
+    // initializing variables to get user's input
+    // length is also needed to resize text and make responsive 
+    var at_var = document.querySelector('#at_var');
+    var at_var_Length = at_var.innerText.length; 
+
+    var saved_atVar; // global to save Airtable Variable  
+
+    // toggle is for sender/receiver
+    var toggle = document.querySelector('#toggle');
+    var toggle_istouched;
+
+    // added event listeners to change animation for the two different toggles
+    toggle.addEventListener("pointerup", function (){
+        if (!toggle_istouched) {
+            document.getElementById("toggle_switch").checked = true;
+            toggle_istouched = true;  
+        }
+        else if (toggle_istouched) {
+            document.getElementById("toggle_switch").checked = false;
+            toggle_istouched = false;
+        }
+    }, false);
+
+
+    try {
+        // initializing new node, this is how you can make new nodes to send multiple values
+        var realityInterface = new RealityInterface();
+        // 0 = x, 0 = y position of the node in the UI 
+        realityInterface.initNode('value', 'node', 0, -60, .35); 
+
+        var _envelopeContents = new EnvelopeContents(realityInterface, document.body);
+        realityInterface.setMoveDelay(500);
+
+        realityInterface.onKeyboardClosed(function() {
+            // stop listening once the keyboard closes
+            isListeningForKeyboard = false; 
+            // if user has put in any value into api key or base id, display "SAVED" 
+            // this helps keeps it "sensitive" if user wants to share their screen
+            console.log('reset label frame text selection');
+            // call renderProperties, this will begin to call the airtable function 
+            renderProperties();
+        });
+
+    } catch (e) {
+        console.warn('Reality Interface is not accessible');
+    }
+
+    at_var.style.fontSize = (250/at_var_Length)+"pt";
+
+    // creating event listeners to let the user type-in their respective values
+    at_var.addEventListener("pointerup", function (){
+        at_var_box = true;
+        if (at_var.innerText === "Enter Variable"){
+            at_var.innerText = "";
+        }
+        isListeningForKeyboard = true;
+        realityInterface.openKeyboard();
+
+        if ((localStorage.getItem('saved_atVar').trim()) != null) {
+                at_var.innerText = (localStorage.getItem('saved_atVar').trim()); 
+            }
+    }, false);
+
+
+    // onKeyUp is what takes in the specifc input values and grabs each character 
+    function onKeyUp(e) {
+
+        if (at_var_box) {
+            
+            if (!isListeningForKeyboard) {
+                return;
+            }
+
+            if (e.key === "Backspace") {
+                at_var.innerText = at_var.innerText.slice(0, -1); // remove last character
+            } 
+            else if (e.key === " ") {
+                at_var.innerText = at_var.innerText + "\u00a0"; // special space character doesn't get escaped
+                resetScroll();
+                setTimeout(function() {
+                    resetScroll(); // also do it after a slight delay
+                }, 100);
+            } 
+            else if (e.key === "Shift") {
+                at_var.innerText = at_var.innerText; // if the user wants to capitalize a character
+                resetScroll();
+                setTimeout(function() {
+                    resetScroll(); // also do it after a slight delay
+                }, 100);
+            } 
+            else {
+                at_var.innerText = at_var.innerText + e.key; 
+            }
+
+            resizeText();
+
+            saved_atVar = at_var.innerText;
+            localStorage.setItem('saved_atVar', at_var.innerText);
+        }
+    }
+
+    // Resizes text, change lines 477-479 if you want a different scale
+    function resizeText() {
+        at_var.innerText = at_var.innerText; 
+
+        var at_var_fontSize = Math.min(70, (((at_var_Length*20)+150)/(at_var_Length)));
+
+        at_var.style.fontSize = at_var_fontSize + "pt";
+    }
+
+    function resetScroll() {
+        if (window.scrollX !== 0 || window.scrollY !== 0) {
+            window.scrollTo(0,0); // don't let keyboard events scroll the window
+        }
+        parent.postMessage(JSON.stringify({resetScroll: true}), '*');
+    }
+
+    // call onKeyUp, the realityInterface.onKeyUp is a built in function, and we pass our
+    // onKeyUp function in it
+    realityInterface.onKeyUp(onKeyUp);
+
+
+    function renderProperties()
+    {
+        if (properties.value <= -255) properties.value = -255;
+        if (properties.value >= 255) properties.value = 255;
+        // setInterval is a built in function that calls airtable over and over with a two second delay
+        // use two seconds to help control lag within the visualization 
+        setInterval(() => { airtable(); }, 1000);
+    }
+
+
+    
+    // helper function to make xmlHttp request given a specified 
+    // base id, table, and api key
+    function httpGet(){
+        var xmlHttp = new XMLHttpRequest();
+        var url = "https://api.airtable.com/v0/" + BASEID + "/" + TABLENAME +"/";
+          
+        xmlHttp.open('GET', url, false);
+        xmlHttp.setRequestHeader('Content-Type','application/json');
+        xmlHttp.setRequestHeader('Authorization',"Bearer " + APIKEY);
+          
+        xmlHttp.send();
+        return xmlHttp.responseText;
+    }
+    // used to get the value of whatever variable is passed in
+    // calls httpGet to open the request 
+    function getvalue(name){
+        // the response is an array, so we parse through it looking for the right variable
+        var arr = (JSON.parse(httpGet())).records; 
+        arr.forEach(function (arrayItem) {
+            if (arrayItem.fields.Variables == name) {
+                if ((arrayItem.fields.Value) === 1) { // if value is an int, we convert to float
+                    write_value = parseFloat(arrayItem.fields.Value);
+                } 
+                else{ // else if the value is a string, we just write out the value 
+                    write_value = (arrayItem.fields.Value);
+                }
+                // built in function to allow the node to "write" out to other tools
+                realityInterface.write('value', write_value);
+            }
+        });
+        return;
+    }
+
+    // hold ID to use when sending/updating values 
+    var temp_id; 
+    // helper to get the ID of a given variable from airtable
+    function getid(name) {
+        var arr = (JSON.parse(httpGet())).records; 
+        arr.forEach(function (arrayItem) {
+            if (arrayItem.fields.Variables == name) {
+                temp_id = arrayItem.id; 
+            }
+        });
+    }
+    // xml request to do a patch, which is updating the given variable with a given value on airtable
+    function httpPatch(value){
+        var xmlHttp = new XMLHttpRequest();
+        var url = "https://api.airtable.com/v0/" + BASEID + "/" + TABLENAME +"/";
+
+        getid(at_var.innerText);
+        // this is the format for a propvalue to update airtable
+        var propValue ={"records": [{"id": temp_id,"fields": {"Value": value.toString()}}]}
+
+        xmlHttp.open('PATCH', url, true);
+        xmlHttp.setRequestHeader('Content-Type','application/json');
+        xmlHttp.setRequestHeader('Authorization','Bearer ' + APIKEY);
+        xmlHttp.onreadystatechange = function() {
+        if(xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                console.log(xmlHttp.responseText);
+            }
+            console.log(xmlHttp.status)
+        };
+        xmlHttp.send(JSON.stringify(propValue));
+    }
+
+    // global variable to send value to airtable
+    // this value is set on line 626
+    var send_val; 
+
+    // airtable makes all of the calls to either send or receive data
+    function airtable(){
+        // If toggle is Sender
+        if (toggle_istouched){
+            httpPatch(send_val);
+        }
+        // If toggle is Receiver 
+        else if (!toggle_istouched){
+            var temp_var = (at_var.innerText).trim();
+            getvalue(temp_var);    
+        }
+    }
+
+
+    try {
+        realityInterface.addReadListener('value', function (e) {
+            // send_val is set to whatever is connected to the airtable node
+            // Ex. if you connect the number tool to airtable, send_val equals
+            // whatever is typed into the number tool
+            properties.value = e.value;
+            send_val = e.value; 
+            if(e.unit) {
+                properties.unit = e.unit;
+            } else {
+                properties.unit = "";
+            }
+            properties.unitMax = e.unitMax;
+            properties.unitMin = e.unitMin;
+        });
+    } catch (e) {
+        console.warn('Reality Interface is not accessible');
+
+        function mockReadListenerTrigger(e) {
+            properties.value = e;
+        }
+    }
+
+
+</script>
+</body>
+</html>

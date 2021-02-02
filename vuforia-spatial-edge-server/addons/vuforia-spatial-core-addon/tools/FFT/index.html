@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="objectDefaultFiles/object.js"></script>
+    <script src="objectDefaultFiles/pep.min.js"></script>
+    <script src="objectDefaultFiles/envelopeContents.js"></script>
+    <meta charset="UTF-8">
+    <title>FFT</title>
+    
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: rgba(0,0,0,.7);
+            width: 450px;
+            height: 338px;
+        }
+        .topText {
+            color: #FFFFFF;
+            text-align: center;
+            position: relative;
+            top: -6px;
+            line-height: 17px;
+            font-size: 12px;
+        }
+        .bottomText {
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 18px;
+            position: relative;
+            top: 15px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            border: 12px solid #00ffe6;
+        }
+        .x-container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            width: 380px;
+        }
+        .x-div {
+            color: #FFFFFF;
+        }
+        .x-label {
+            font-size: 12px;
+            margin-top: 4px;
+            padding-right: 22px;
+        }
+        .equalizer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 1rem;
+            width: 380px;
+        }
+        .equalizer-bar {
+            width: 100%;
+            margin: 0 3px;
+            display: flex;
+            flex-direction: column-reverse;
+        }
+        .equalizer-bar span {
+            display: block;
+            height: 4px;
+            border-radius: 2px;
+            width: 100%;
+            margin: 2px 0;
+            background-color: #FFF;
+            transition: 0.2s ease all;
+            opacity: 1;
+        }
+        .equalizer-bar:nth-child(1) span {}
+        .equalizer-bar:nth-child(2) span {}
+        .equalizer-bar:nth-child(3) span {}
+        .equalizer-bar:nth-child(4) span {}
+        .equalizer-bar:nth-child(5) span {}
+        .equalizer-bar:nth-child(6) span {}
+        .equalizer-bar:nth-child(7) span {}
+        .equalizer-bar:nth-child(8) span {}
+        .equalizer-bar:nth-child(9) span {}
+        .equalizer-bar:nth-child(10) span {}
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div id="TESTING" style="color: #FFF">0</div>
+        <div class="equalizer">
+            <div class="equalizer-bar"> <!-- 1 -->
+                <span></span>
+            </div>
+            <div class="equalizer-bar"> <!-- 2 -->
+                <span></span>
+            </div>
+            <div class="equalizer-bar"> <!-- 3 -->
+                <span></span>
+            </div>
+            <div class="equalizer-bar"> <!-- 4 -->
+                <span></span>
+            </div>
+            <div class="equalizer-bar"> <!-- 5 -->
+                <span></span>
+            </div>
+            <div class="equalizer-bar"> <!-- 6 -->
+                <span></span>
+            </div>
+            <div class="equalizer-bar"> <!-- 7 -->
+                <span></span>
+            </div>
+            <div class="equalizer-bar"> <!-- 8 -->
+                <span></span>
+            </div>
+            <div class="equalizer-bar"> <!-- 9 -->
+                <span></span>
+            </div>
+            <div class="equalizer-bar"> <!-- 10 -->
+                <span></span>
+            </div>
+        </div>
+
+        <div class="x-container">
+            <div class="x-div"><span></span></div>
+        </div>
+        <h5 class="bottomText" style="margin-top: 0px">FREQUENCY &nbsp[Hz]</h5>
+        <div class="topText" id="topText"></div>
+    </div>
+
+
+</body>
+
+<script>
+    const MAX_BAR_HEIGHT = 20;
+    // 25 is max frequency for SPIKE and we have 10 bands (bars)
+    // Used within fill X-Axis
+    const logSpace = getLogSpace(25, 10); 
+
+    // Airtable Stuff
+    BASEID = "apph4VI7Pi70nUDOD";
+    TABLENAME = "Table1";
+    APIKEY = "key4SssZ2nJDuK1KG";
+
+    // Initialize all the bars
+    addBarSpans();
+    // Initialize all the x values
+    fill_Xaxis()
+
+
+    // Add the default spans
+    function addBarSpans() {
+        const bars = document.getElementsByClassName('equalizer-bar');
+      
+        let html = '';
+        for(let j = 0; j < MAX_BAR_HEIGHT; j++) {
+            if (j <= 3){
+                html += '<span style="background: #6efb05"></span>';
+            }
+            else if (j == 4) {
+                html += '<span style="background: #ecfb05"></span>';
+            }
+            else if (j >= 5 && j <= 8) {
+                html += '<span style="background: #fbe005"></span>';
+            }
+            else if (j == 9) {
+                html += '<span style="background: #fbbe05"></span>';
+            }
+            else if (j >=10 && j <= 13) {
+                html += '<span style="background: #fb9405"></span>';
+            }
+            else if (j >=14 && j <= 16) {
+                html += '<span style="background: #fb6105"></span>';
+            }
+            else {
+                html += '<span style="background: #fb2f05"></span>';
+            }
+        }  
+        
+        for(let i = 0; i < bars.length; i++) {
+            bars[i].innerHTML = html;
+        }
+    }
+
+    // Returns the number of active spans
+    function getActiveSpans(spans) {
+        let counter = 0;
+       
+        for(let i = 0; i < spans.length; i++) {
+            if(spans[i].style.opacity > 0) counter++;
+        }
+      
+        return counter;
+    }
+    // rounding numbers to a certain decimal point
+    function round(value, precision) {
+        let multiplier = Math.pow(10, precision || 0);
+        return Math.round(value * multiplier) / multiplier;
+    }
+    // Fill x-axis with values
+    function fill_Xaxis() {
+        const Xaxis = document.getElementsByClassName('x-div');
+
+        let html = '';
+        for (let j = 0; j <= 10; j++) {
+            if (j == 0) {
+                html += '<span class="x-label">0</span>'
+            }
+            // Styling for equalizer
+            else if (j > 3 && j < 6) {
+                value = round(logSpace[j-1], 1)
+                html += `<span class="x-label" style="position: relative; margin-right: 4px">${value}</span>`
+            }
+            else if (j > 6 && j < 9) {
+                value = round(logSpace[j-1], 1)
+                html += `<span class="x-label" style="position: relative; margin-right: -7px">${value}</span>`
+            }
+            else {
+                value = round(logSpace[j-1], 1)
+                html += `<span class="x-label">${value}</span>`
+            }
+        }
+        Xaxis[0].innerHTML = html;
+    }
+
+    function getLogSpace(maxFrequency, maxBands) {
+        let logSpace = [];  
+        for (let i = 0; i < maxBands; i++) {     
+            logSpace[i] = Math.exp((i+1) * Math.log(maxFrequency)/maxBands); 
+        }  
+        return logSpace;
+    }
+
+    // Main programm (repeats)
+    function setBarHeight(height, col) {
+        const bars = document.getElementsByClassName('equalizer-bar');
+
+        let spans = bars[col].getElementsByTagName('span');
+        let activeSpanCount = getActiveSpans(spans);
+        let newHeight = height;
+
+
+        for(let i = 0; i < bars.length; i++) {
+         
+            // let spans = bars[i].getElementsByTagName('span');
+            let activeSpanCount = getActiveSpans(spans);
+            let newHeight = height;
+  
+            
+            for(let j = 0; j < spans.length; j++) {
+              
+                if(newHeight > activeSpanCount) {
+                    spans[j].style.opacity = '1';
+                } else if(j > newHeight) {        
+                    spans[j].style.opacity = '0';
+                }
+
+            }
+        }
+    }
+
+    function bandPower(f1, f2, mag, freq) {
+        let i = 0;
+        let psd = 0;
+        while (freq[i] < f1) {
+            i++
+        }
+        while (freq[i] <= f2) {
+            if (i == freq.length-1) {
+                break
+            }
+            else {
+                psd = psd + mag[i] * (freq[i+1] - freq[i]);
+            }
+            i++
+        }
+        return psd
+    }
+
+    function updateGraph(mag, freq) {
+        const maxMag_text = document.getElementById('topText');
+
+        let new_freq = [];
+        for (let i = 0; i < freq.length; i++) {
+            if (freq[i] > 0) {
+                new_freq.push(freq[i]);
+            }
+        }
+        freq = new_freq;
+        mag = mag.splice(0, new_freq.length);
+
+        let psd = [];
+
+        psd.push((bandPower(0, logSpace[0], mag, freq))/(logSpace[0]-0));
+
+        let indexOfMaxPSDValue = 0
+        for (let i = 0; i < logSpace.length - 1; i++) {
+            psd.push((bandPower(logSpace[i], logSpace[i+1], mag, freq))/(logSpace[i+1]-logSpace[i]));
+        }
+
+        indexOfMaxPSDValue = psd.indexOf(Math.max(...psd));
+        
+        let row_value = psd[indexOfMaxPSDValue]/20;
+
+        for (let i = 0; i < 10; i++) { // 10 is the number of bins
+            let scaledHeight = (psd[i]/(psd[indexOfMaxPSDValue]/19)); // 19 indexed rows
+            setBarHeight(round(scaledHeight, 0), i); 
+        }
+
+        indexOfMaxMAGValue = mag.indexOf(Math.max(...mag));
+
+        maxMag_text.innerHTML = `Max Band Power: ${round(psd[indexOfMaxPSDValue], 2)} <sup>amplitude<sup>2</sup></sup>&frasl;<sub>Hz</sub>  <br> 
+                                Frequency with Highest Magnitude: ${round(freq[indexOfMaxMAGValue], 2)}Hz`;
+    }
+
+
+    /******************** AIRTABLE FUNCTIONS ********************/
+    // helper function to make xmlHttp request given a specified 
+    // base id, table, and api key
+    function httpGet(){
+        var xmlHttp = new XMLHttpRequest();
+        var url = "https://api.airtable.com/v0/" + BASEID + "/" + TABLENAME +"/";
+          
+        xmlHttp.open('GET', url, false);
+        xmlHttp.setRequestHeader('Content-Type','application/json');
+        xmlHttp.setRequestHeader('Authorization',"Bearer " + APIKEY);
+          
+        xmlHttp.send();
+        return xmlHttp.responseText;
+    }
+    // used to get the value of whatever variable is passed in
+    // calls httpGet to open the request 
+    var write_value;
+    function getvalue(name){
+        // the response is an array, so we parse through it looking for the right variable
+        var arr = (JSON.parse(httpGet())).records; 
+        arr.forEach(function (arrayItem) {
+            if (arrayItem.fields.Variables == name) {
+                if ((arrayItem.fields.Value) === 1) { // if value is an int, we convert to float
+                    write_value = parseFloat(arrayItem.fields.Value);
+                } 
+                else{ // else if the value is a string, we just write out the value 
+                    write_value = (arrayItem.fields.Value);
+                }
+            }
+        });
+        return write_value;
+    }
+
+
+
+    try {
+        var realityInterface = new RealityInterface();
+        realityInterface.initNode('value', 'node', 0, 0); 
+
+        var _envelopeContents = new EnvelopeContents(realityInterface, document.body);
+        realityInterface.setMoveDelay(500);
+
+        realityInterface.onKeyboardClosed(function() {
+            isListeningForKeyboard = false; // stop listening once the keyboard closes
+            console.log('reset label frame text selection');
+            //when keyboard closed call function to write value to node
+        });
+
+    } catch (e) {
+        console.warn('Reality Interface is not accessible');
+    }
+
+    var magnitudes_array = [];
+    var frequencies_array = [];
+
+    // var mag = [4.781333456362952,2.9979539100425474,3.879711755246949,5.10910529544386,8.533783782284425,6.679774633848603,6.216781881356399,8.413224725579372,8.652116668644428,25.35082733098651,6.561816449271085,3.616073004702436,3.9896842553183003,8.799980236753848,7.228913536919033,11.542241730151416,8.102160935912707,4.829901125118441,8.234397146791952,13.076283814227786,5.208824306929699,7.96587203320513,10.776972033251953,12.017833535449958,13.099548863998283,3.5754981769677348,7.915065971381188,7.168616974137185,15.226878256479885,12.271867447709706,5.0342796539786665,17.50742169582144,7.65685424949238,10.402229136922514,9.21028769134451,11.894430497424803,8.531585612828977,4,11.411675909969517,3.299324036438677,4.532034672076877,15.261327842471731,3.6568542494923797,3.520057086587112,6.386408582704213,2.6809469025827863,10.201122869669035,8.862555091541061,11.379598336086639,15.983314082426757,13.841095397637767,10.79681298718379];
+    // var freq = [0.390625,0.78125,1.5625,4.6875,5.46875,8.203125,8.59375,10.15625,10.9375,11.71875,12.109375,12.890625,13.28125,13.671875,14.84375,16.40625,16.796875,17.96875,18.359375,20.703125,21.484375,21.875,22.265625,23.046875,23.4375,24.21875,-24.609375,-23.828125,-20.3125,-19.921875,-19.53125,-19.140625,-18.75,-17.578125,-16.015625,-15.625,-14.453125,-12.5,-10.546875,-9.765625,-8.984375,-7.03125,-6.25,-5.078125,-4.296875,-3.90625,-3.515625,-3.125,-2.734375,-2.34375,-1.953125,-1.171875];
+
+    try {
+        realityInterface.addReadListener('value', function (e) {
+
+        updateGraph(magnitudes_array, frequencies_array);
+
+        if (e.value >= 0 && !isNaN(e.value)) {
+            document.getElementById('TESTING').innerHTML = "Max Magnitude: " + round(e.value, 1);
+            // Gathered from the Airtable
+            magnitudes_array = (getvalue("magnitudes")).split(',').map(Number); 
+            frequencies_array = (getvalue("frequencies")).split(',').map(Number);
+            updateGraph(magnitudes_array, frequencies_array);
+        }
+            // output = processFFT(rando, 2, document.getElementById('TESTING').innerHTML);
+            // document.getElementById('TESTING').innerHTML = JSON.stringify(output);//e.value;
+            // properties.value = e.value;s
+            // if(e.unit) {
+            //     properties.unit = e.unit;
+            // } else {
+            //     properties.unit = "";
+            // }
+            // properties.unitMax = e.unitMax;
+            // properties.unitMin = e.unitMin;
+
+            // renderProperties();
+        });
+    } catch (e) {
+        console.warn('Reality Interface is not accessible');
+    }
+
+</script>
+
+
+</html>

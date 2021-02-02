@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="objectDefaultFiles/object.js"></script>
+    <script src="objectDefaultFiles/pep.min.js"></script>
+    <script src="objectDefaultFiles/envelopeContents.js"></script>
+    <meta charset="UTF-8">
+    <title>loop</title>
+    <style>
+        @font-face {
+            font-family: 'Roboto';
+            src: url('resources/roboto.ttf');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Roboto';
+            src: url('resources/roboto-bold.ttf');
+            font-weight: bold;
+            font-style: normal;
+        }
+        #input {
+            cursor: pointer;
+            font-family: "Roboto", "Avenir", "Futura", Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 32px;
+            color: #16ff00;
+            text-align: center;
+        }
+
+        #text {
+            font-family: "Roboto", "Avenir", "Futura", Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 28pt;
+            color: #82eeff;
+            overflow-wrap: break-word;
+        }
+        #input:hover {
+            opacity: 0.75;
+            cursor: pointer;
+        }
+
+        .boxed {
+            border: 8px solid #82eeff;
+            width: 45%;
+
+        }
+        .boxed2 {
+            width: 45%;
+            border: 8px solid #16ff00;
+            overflow-wrap: break-word;
+        }
+    </style>
+</head>
+
+<body style="position: relative; width: 200%; height: 200%">
+    
+<div class="boxed">
+    <div id="input" contenteditable>Enter # of loops</div>
+</div>
+<br>
+<div class="boxed2">
+    <div id="text" contenteditable>Content</div>
+</div>
+
+
+
+<script>
+
+    var count = 0;
+    var keyboard_count = 0;
+
+    var isListeningForKeyboard = false;
+    var loop_num;
+
+    //initializes text variable (prints current loop num)
+    var text = document.getElementById("text");
+    var properties = {
+        value: 0,
+        unitMax: 255,
+        unitMin: -255,
+        unit: ""
+    };
+
+    //initializes input variable (user inputs number of loops)
+    var input = document.querySelector('#input');
+    var inputLength = input.innerText.length;
+
+
+    try {
+        //two nodes for loop tool 
+        var realityInterface = new RealityInterface();
+        realityInterface.initNode('bool', 'node', 30, 0);   //bool node outputs true when loop is process, false otherwise
+        realityInterface.initNode('count', 'node', 30, -45);    //count node increases when number above 0 connected
+
+        var _envelopeContents = new EnvelopeContents(realityInterface, document.body);
+        realityInterface.setMoveDelay(500);
+
+        realityInterface.onKeyboardClosed(function() {
+            //keyborad_count accounts for the fact that start never ends 
+            //second time the loop is run, count increases by 2 instead of 1, so keyboard_count fixes this 
+            keyboard_count+=1;  
+            isListeningForKeyboard = false; // stop listening once the keyboard closes
+            console.log('reset label frame text selection');
+            //call the start function after loop_num entered by user so loop can begin
+            start();
+        });
+
+    } catch (e) {
+        console.warn('Reality Interface is not accessible');
+    }
+
+    input.style.fontSize = (250/inputLength)+"pt";
+
+    //when user taps top box, number of loops entered
+    input.addEventListener("pointerup", function (){
+        if (input.innerText === "Enter # of loops") {
+            input.innerText = "";
+        }
+        isListeningForKeyboard = true;
+        realityInterface.openKeyboard();
+    }, false);
+
+    function onKeyUp(e) {
+
+        if (!isListeningForKeyboard) {
+            return;
+        }
+
+        if (e.key === "Backspace") {
+            input.innerText = input.innerText.slice(0, -1); // remove last character
+        } else if (e.key === " " || e.key === "Shift") {
+            input.innerText = input.innerText + "\u00a0"; // special space character doesn't get escaped
+            resetScroll();
+            setTimeout(function() {
+                resetScroll(); // also do it after a slight delay
+            }, 100);
+        } else {
+            input.innerText = input.innerText + e.key;
+        }
+
+        resizeText();
+
+        //set the loop_nunm equal to the user input
+        loop_num = parseInt(input.innerText);
+
+    }
+
+    function resizeText() {
+        input.innerText = input.innerText;
+        
+        var inputLength = input.innerText.length;
+        var fontSize = Math.min(70, (((inputLength*20)+150)/(inputLength))); // font size increases up to 45pt
+        console.log('inputLength ' + inputLength + ' => fontSize' + fontSize);
+        input.style.fontSize = fontSize + "pt";
+    }
+
+    function resetScroll() {
+        if (window.scrollX !== 0 || window.scrollY !== 0) {
+            window.scrollTo(0,0); // don't let keyboard events scroll the window
+        }
+        parent.postMessage(JSON.stringify({resetScroll: true}), '*');
+    }
+
+    realityInterface.onKeyUp(onKeyUp);
+
+
+    function renderProperties()
+    {
+        if (properties.value <= -255) properties.value = -255;
+        if (properties.value >= 255) properties.value = 255;
+    }
+
+    //checks if the count is equivalent to the loop_num entered by user, ends loop if so
+    //resets count and writes 0 to bool to end loop
+    function check() {
+        if (count >= loop_num) {
+            realityInterface.write('bool', 0);
+            count = 0;
+            text.innerHTML = "Loop Finished";
+        }
+    }
+
+    //called when user enters loop_num, writes 1 to bool to show the loop is occurring
+    function start() {
+        realityInterface.write('bool', 1);
+        text.innerHTML = count;
+        execute();
+    }
+
+    //if the input in count is not equal to 0 then count increases
+    function checking(num) {
+        if (num != 0) {
+            //use keyboard count to account for count not properly resetting
+            count = count + (1/keyboard_count);
+            text.innerHTML = "Loop Num: " + Math.ceil(count);
+            check();      
+        }
+        else return;
+    }
+
+    //continuously checks if the count node has an input
+    function execute() {
+        realityInterface.addReadListener('count', function (e) {
+
+                properties.value = e.value;
+                if(e.unit) {
+                    properties.unit = e.unit;
+                } else {
+                    properties.unit = "";
+                }
+                properties.unitMax = e.unitMax;
+                properties.unitMin = e.unitMin;
+                //sends value from node to cheking function
+                checking(e.value);
+                renderProperties();
+            });
+}
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="objectDefaultFiles/object.js"></script>
+    <script src="objectDefaultFiles/pep.min.js"></script>
+    <script src="objectDefaultFiles/envelopeContents.js"></script>
+    <meta charset="UTF-8">
+    <title>inequality</title>
+    <style>
+        @font-face {
+            font-family: 'Roboto';
+            src: url('resources/roboto.ttf');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Roboto';
+            src: url('resources/roboto-bold.ttf');
+            font-weight: bold;
+            font-style: normal;
+        }
+        #input {
+            cursor: pointer;
+            font-family: "Roboto", "Avenir", "Futura", Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 32px;
+            color: #16ff00;
+            text-align: center;
+        }
+
+        #text {
+            font-family: "Roboto", "Avenir", "Futura", Helvetica Neue, Helvetica, Arial, sans-serif;
+            font-size: 28pt;
+            color: #82eeff;
+            overflow-wrap: break-word;
+        }
+        #input:hover {
+            opacity: 0.75;
+            cursor: pointer;
+        }
+
+        .boxed {
+            border: 8px solid #82eeff;
+            width: 45%;
+
+        }
+        .boxed2 {
+            width: 45%;
+            border: 8px solid #16ff00;
+            overflow-wrap: break-word;
+        }
+    </style>
+</head>
+
+<body style="position: relative; width: 200%; height: 200%">
+    
+<div class="boxed">
+    <div id="input" contenteditable>Enter less/greater/equal</div>
+</div>
+<br>
+<div class="boxed2">
+    <div id="text" contenteditable>Content</div>
+</div>
+
+
+
+<script>
+
+
+
+    var isListeningForKeyboard = false;
+    var in1, in2, condition;
+
+    //initializes text variable (prints outputs of tool)
+    var text = document.getElementById("text");
+    var properties = {
+        value: 0,
+        unitMax: 255,
+        unitMin: -255,
+        unit: ""
+    };
+
+    //initializes input variable (user inputs inequality sign)
+    var input = document.querySelector('#input');
+    var inputLength = input.innerText.length;
+
+
+    try {
+        var realityInterface = new RealityInterface();
+        realityInterface.initNode('bool', 'node', 30, 0);   //bool node outputs true if inequality true, false otherwise
+        realityInterface.initNode('value', 'node', 30, -45);    //value node outputs input1 if inequality true
+        realityInterface.initNode('input1', 'node', -30, -45);  //first input to compare 
+        realityInterface.initNode('input2', 'node', -30, 0);    //second input to compare
+        realityInterface.initNode('storage', 'storeData');  //stores the inequality sign input from user
+
+        var _envelopeContents = new EnvelopeContents(realityInterface, document.body);
+        realityInterface.setMoveDelay(500);
+
+        realityInterface.onKeyboardClosed(function() {
+            isListeningForKeyboard = false; // stop listening once the keyboard closes
+            // compare();
+            console.log('reset label frame text selection');
+            renderProperties();
+        });
+
+    } catch (e) {
+        console.warn('Reality Interface is not accessible');
+    }
+
+    input.style.fontSize = (250/inputLength)+"pt";
+
+    //when user taps top box, inequality sign entered
+    input.addEventListener("pointerup", function (){
+        if (input.innerText === "Enter less/greater/equal") {
+            input.innerText = "";
+        }
+        isListeningForKeyboard = true;
+        realityInterface.openKeyboard();
+    }, false);
+
+    function onKeyUp(e) {
+
+        if (!isListeningForKeyboard) {
+            return;
+        }
+
+        if (e.key === "Backspace") {
+            input.innerText = input.innerText.slice(0, -1); // remove last character
+        } else if (e.key === " " || e.key === "Shift") {
+            input.innerText = input.innerText + "\u00a0"; // special space character doesn't get escaped
+            resetScroll();
+            setTimeout(function() {
+                resetScroll(); // also do it after a slight delay
+            }, 100);
+        } else {
+            input.innerText = input.innerText + e.key;
+        }
+
+        resizeText();
+        realityInterface.writePublicData("storage", "data",  input.innerText);
+
+        //set the condition equal to the user input
+        condition = input.innerText.toLowerCase();
+    }
+
+    function resizeText() {
+        input.innerText = input.innerText;
+        
+        var inputLength = input.innerText.length;
+        var fontSize = Math.min(70, (((inputLength*20)+150)/(inputLength))); // font size increases up to 45pt
+        console.log('inputLength ' + inputLength + ' => fontSize' + fontSize);
+        input.style.fontSize = fontSize + "pt";
+    }
+
+    function resetScroll() {
+        if (window.scrollX !== 0 || window.scrollY !== 0) {
+            window.scrollTo(0,0); // don't let keyboard events scroll the window
+        }
+        parent.postMessage(JSON.stringify({resetScroll: true}), '*');
+    }
+
+    try {
+        realityInterface.addReadPublicDataListener('storage', "data", function (e) {
+            if (typeof e === 'string') {
+                input.innerText = e;
+                resizeText();
+            }
+        });
+
+        realityInterface.onKeyUp(onKeyUp);
+
+    } catch (e) {
+        console.warn('Reality Interface is not accessible');
+    }
+
+    function execute(works) {
+        //if true, write input1 to value, 1 to bool
+        if (works) {
+            realityInterface.write('value', in1);
+            realityInterface.write('bool', 1);
+            text.innerHTML = "True, " + in1;
+        }
+        //if false, write 0 to both value and bool
+        else {
+            realityInterface.write('bool', 0);
+            realityInterface.write('value', 0);
+            text.innerHTML = "False";
+        }
+
+    }
+
+    //depending on what the condition is and if the inequality is true, call the execute function 
+    function compare() {
+        if (condition === "greater" || condition == ">") {
+            if (in1 > in2) execute(true);
+            else execute(false);
+        }
+        if (condition === "less" || condition == "<") {
+            if (in1 < in2) execute(true);
+            else execute(false);
+        }
+        if (condition === "equal" || condition == "=") {
+            if (in1 == in2) execute(true);
+            else execute(false);
+        }
+    }
+
+    //called when user types in condition
+    function renderProperties()
+    {
+        if (properties.value <= -255) properties.value = -255;
+        if (properties.value >= 255) properties.value = 255;
+
+        compare();
+    }
+
+
+    function ready() {
+        renderProperties();
+    }
+    ready();
+
+    //continuously set in1 equal to whatever is coming into input1
+    try {
+        realityInterface.addReadListener('input1', function (e) {
+
+            properties.value = e.value;
+            if(e.unit) {
+                properties.unit = e.unit;
+            } else {
+                properties.unit = "";
+            }
+            properties.unitMax = e.unitMax;
+            properties.unitMin = e.unitMin;
+            in1 = e.value;
+            renderProperties();
+        });
+    } catch (e) {
+        console.warn('Reality Interface is not accessible');
+
+        function mockReadListenerTrigger(e) {
+            properties.value = e;
+            renderProperties();
+        }
+    }
+
+    //continuously set in2 equal to whatever is coming into input2
+    try {
+        realityInterface.addReadListener('input2', function (e) {
+
+            properties.value = e.value;
+            if(e.unit) {
+                properties.unit = e.unit;
+            } else {
+                properties.unit = "";
+            }
+            properties.unitMax = e.unitMax;
+            properties.unitMin = e.unitMin;
+            in2 = e.value;
+            renderProperties();
+        });
+    } catch (e) {
+        console.warn('Reality Interface is not accessible');
+
+        function mockReadListenerTrigger(e) {
+            properties.value = e;
+            renderProperties();
+        }
+    }
+
+</script>
+
+</body>
+</html>

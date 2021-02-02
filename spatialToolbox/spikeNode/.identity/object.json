@@ -1,0 +1,29 @@
+{
+	"objectId": "spikeNodemLiiywjcrni2",
+	"name": "spikeNode",
+	"matrix": [],
+	"isAnchor": false,
+	"version": "3.2.2",
+	"deactivated": false,
+	"protocol": "R2",
+	"tcs": "1BItq4",
+	"visible": false,
+	"visibleText": false,
+	"visibleEditing": false,
+	"memory": {},
+	"memoryCameraMatrix": {},
+	"memoryProjectionMatrix": {},
+	"frames": {},
+	"framesHistory": {},
+	"visualization": "ar",
+	"zone": "",
+	"targetSize": {
+		"width": 0.14,
+		"height": 0.202194
+	},
+	"isWorldObject": false,
+	"timestamp": null,
+	"port": 8080,
+	"developer": true,
+	"ip": "192.168.1.154"
+}
