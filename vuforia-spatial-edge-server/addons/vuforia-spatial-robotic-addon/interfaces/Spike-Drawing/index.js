@@ -3,7 +3,6 @@
 var serial = require('./serial.js');
 var server = require('@libraries/hardwareInterfaces');
 var inverse = require('./inverseKinematics.js');
-var draw = require('./apikey/Node/drawing.js')
 var settings = server.loadHardwareInterface(__dirname);
 
 var TOOL_NAME = "spikeDraw"; // This is what is made on the webserver for the image target
@@ -81,30 +80,6 @@ if (exports.enabled){
                 default: 0,
                 disabled: false,
                 helpText: "The length (in millimeters) from the second rotating joint to the end effector."
-            },
-            // documentId
-            spikeDocumentId: {
-                value: settings('spikeDocumentId', "did"),
-                type: 'text',
-                default: 'did',
-                disabled: false,
-                helpText: 'The document ID of the onshape model. Found after /documents/ in the URL.'
-            },
-            // workspaceId
-            spikeWorkspaceId: {
-                value: settings('spikeWorkspaceId', 'wid'), 
-                type: 'text',
-                default: 'wid',
-                disabled: false,
-                helpText: 'The workspace ID of the onshape model. Found after the /w/ in the URL.'
-            },
-            // elementId
-            spikeElementId: {  
-                value: settings('spikeElementId', 'eid'),
-                type: 'text',
-                default: 'eid',
-                disabled: false,
-                helpText: 'The element ID of the onshape model. Found after the /e/ in the URL.'
             }
         };
     }
@@ -116,16 +91,9 @@ if (exports.enabled){
     imageToBaseY = exports.settings.imageToBaseY.value;
     link1Length = exports.settings.link1Length.value;
     link2Length = exports.settings.link2Length.value;
-    documentId = exports.settings.spikeDocumentId.value;
-    workspaceId = exports.settings.spikeWorkspaceId.value;
-    elementId = exports.settings.spikeElementId.value;
 
     if (link1Length != 0 && link2Length != 0) {
         inverse.setLengths(imageToBaseX, imageToBaseY, link1Length, link2Length);
-    }
-
-    if (documentId != 'did' && workspaceId != 'wid' && elementId != 'eid') {
-        draw.setParams(documentId, workspaceId, elementId);
     }
 
     server.addEventListener('reset', function () {
@@ -160,10 +128,6 @@ function startHardwareInterface() {
             path.checkpoints = [];
         });
         pathData = [];
-
-        // draw.deleteSpline(function(data){
-        //     console.log(data)
-        // })
 
         server.pushUpdatesToDevices("spikeDraw");
 
@@ -253,11 +217,6 @@ function startHardwareInterface() {
                             });
 
                             console.log(frameCheckpoint.posX/1000 + "," + frameCheckpoint.posY/1000 + "," + frameCheckpoint.posZ/1000)
-
-                            // Update the spline
-                            draw.addPoints([frameCheckpoint.posX/1000, -frameCheckpoint.posZ/1000], function(data){
-                                console.log(data)
-                            });
                         }
                     });
                 }

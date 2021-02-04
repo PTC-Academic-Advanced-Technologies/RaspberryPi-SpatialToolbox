@@ -2,15 +2,16 @@ var feature = require('./lib/feature.js')
 var app = require('./lib/app.js')
 
 var onshapePoints = [];
-let name = 'VST Drawing';
+var name = 'VST Drawing';
 var did = 'ee61e6f250d2c324d8ef264b';
 var wid = '3105b4bf84e8ea3fdd5074a1';
 var eid = 'f06c4bc382926e56e6534f92';
 
-var setParams = function(documentId, workspaceId, elementId) {
+var setParams = function(documentId, workspaceId, elementId, featureName) {
     did = documentId;
     wid = workspaceId;
     eid = elementId;
+    name = featureName;
     console.log("Params set")
 }
 
