@@ -7,7 +7,7 @@ const rl = readline.createInterface({
 });
 
 var url = "https://cad.onshape.com"
-const path = './home/pi/Desktop/RaspberryPi-SpatialToolbox/vuforia-spatial-edge-server/addons/vuforia-spatial-robotic-addon/interfaces/Spike-Drawing/apikey/Node/config/apikey.js'
+const path = '/home/pi/Desktop/RaspberryPi-SpatialToolbox/vuforia-spatial-edge-server/addons/vuforia-spatial-robotic-addon/interfaces/Spike-Drawing/apikey/Node/config/apikey.js'
 
 promptUser();
 
