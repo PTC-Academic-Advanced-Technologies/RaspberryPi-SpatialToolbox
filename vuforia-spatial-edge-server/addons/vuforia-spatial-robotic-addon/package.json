@@ -47,5 +47,10 @@
     "watchify": "^3.11.1",
     "wedoboostpoweredup": "^2.1.7"
   },
-  "dependencies": {}
+  "dependencies": {
+    "readline-sync": "^1.4.10",
+    "serialport": "^9.0.6",
+    "zeromq": "^5.2.0",
+    "zerorpc": "^0.9.8"
+  }
 }
