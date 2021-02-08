@@ -32,48 +32,62 @@ port.pipe(parser)
 function openPort() {
 	port.on('open', () => console.log('Port open'))
 	// Use the below line to see what the REPL outputs
-	parser.on('data', console.log)
-	writePort('\x03')
-	setInterval(() => { readMessage(); }, 0);
+	//parser.on('data', console.log)
+	writePort('\x03');
+
+	try{
+		readMessage();
+	}
+	catch(error){
+		console.log("SPIKE Prime Not Connected");
+	}
 }
 
 // Reads in from the port and sets sensorReading to be the most recent non-empty line
 function readMessage() {
 	port.on('readable', function() {
-		raw = port.read()
-		if (raw != null) {
-			sensorReading = raw.toString('utf8')
-			//console.log(sensorReading)
-			// Checks to see if there is exactly one enter line
-			if (((sensorReading.match(/\n/g) || []).length) == 1)  {
-				//Do nothing
-			}
-			// If there is not exactly one enter line, then split at the enters, and take the most recent line that has data
-			else {
-				arr = sensorReading.split('\n')
-				i = 1
-				while (i < arr.length) {
-					// Eliminates lines that are either empty or were code that we excuted
-					if (arr[arr.length-i].includes(">") || arr[arr.length-i].includes("...") || arr[arr.length-i] === "") {
-						i = i + 1
-					}
-					else {
-						break;
-					}
+		setInterval(() => {  
+			raw = port.read()
+			if (raw != null) {
+				sensorReading = raw.toString('utf8')
+				//console.log(sensorReading)
+				// Checks to see if there is exactly one enter line
+				if (((sensorReading.match(/\n/g) || []).length) == 1)  {
+					//Do nothing
 				}
-				sensorReading = arr[arr.length - i]
+				// If there is not exactly one enter line, then split at the enters, and take the most recent line that has data
+				else {
+					arr = sensorReading.split('\n')
+					i = 1
+					while (i < arr.length) {
+						// Eliminates lines that are either empty or were code that we excuted
+						if (arr[arr.length-i].includes(">") || arr[arr.length-i].includes("...") || arr[arr.length-i] === "") {
+							i = i + 1
+						}
+						else {
+							break;
+						}
+					}
+					sensorReading = arr[arr.length - i]
+				}
+				sensorReading = sensorReading.replace(/>>>/g, '')
+				sensorReading = sensorReading.replace(/\n/g, '')
+				sensorReading = sensorReading.replace(/\r/g, '')
 			}
-			sensorReading = sensorReading.replace(/>>>/g, '')
-			sensorReading = sensorReading.replace(/\n/g, '')
-			sensorReading = sensorReading.replace(/\r/g, '')
-		}
+		}, 0)
 	})
 	//console.log(sensorReading)
 }
 
 // Write a message to the connected device
 function writePort(msg) {
-	port.write(msg)
+	try{
+		port.write(msg);
+	}
+	catch(error){
+		console.log("SPIKE Prime Not Connected");
+	}
+	// port.write(msg)
 }
 
 // Get the name of the file that is to be sent over the serial port (not used in index.js)
