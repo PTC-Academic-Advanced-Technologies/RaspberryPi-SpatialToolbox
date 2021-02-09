@@ -1,0 +1,140 @@
+{
+	"objectId": "drawoJ4u9fu8ei6o",
+	"name": "draw",
+	"matrix": [],
+	"isAnchor": false,
+	"ip": "192.168.7.106",
+	"version": "3.2.2",
+	"deactivated": false,
+	"protocol": "R2",
+	"tcs": "3pUJr0",
+	"visible": false,
+	"visibleText": false,
+	"visibleEditing": false,
+	"memory": {},
+	"memoryCameraMatrix": {},
+	"memoryProjectionMatrix": {},
+	"frames": {
+		"drawoJ4u9fu8ei6okineticAR": {
+			"objectId": "drawoJ4u9fu8ei6o",
+			"name": "kineticAR",
+			"visualization": "ar",
+			"ar": {
+				"x": 0,
+				"y": 0,
+				"scale": 1,
+				"matrix": []
+			},
+			"screen": {
+				"x": 0,
+				"y": 0,
+				"scale": 1
+			},
+			"visible": false,
+			"visibleText": false,
+			"visibleEditing": false,
+			"developer": true,
+			"links": {},
+			"nodes": {
+				"drawoJ4u9fu8ei6okineticARkineticNode1": {
+					"name": "kineticNode1",
+					"objectId": "drawoJ4u9fu8ei6o",
+					"frameId": "drawoJ4u9fu8ei6okineticAR",
+					"data": {
+						"value": 0,
+						"mode": "f",
+						"unit": "",
+						"unitMin": 0,
+						"unitMax": 1
+					},
+					"x": -5,
+					"y": 69,
+					"scale": 1,
+					"matrix": [],
+					"type": "storeData",
+					"stress": 0,
+					"privateData": {},
+					"publicData": {},
+					"frameSizeX": 100,
+					"frameSizeY": 100
+				},
+				"drawoJ4u9fu8ei6okineticARkineticNode2": {
+					"name": "kineticNode2",
+					"objectId": "drawoJ4u9fu8ei6o",
+					"frameId": "drawoJ4u9fu8ei6okineticAR",
+					"data": {
+						"value": 0,
+						"mode": "f",
+						"unit": "",
+						"unitMin": 0,
+						"unitMax": 1
+					},
+					"x": -16,
+					"y": -74,
+					"scale": 1,
+					"matrix": [],
+					"type": "storeData",
+					"stress": 0,
+					"privateData": {},
+					"publicData": {
+						"pathData": [
+							{
+								"index": 0,
+								"checkpoints": []
+							}
+						]
+					},
+					"frameSizeX": 100,
+					"frameSizeY": 100
+				},
+				"drawoJ4u9fu8ei6okineticARkineticNode4": {
+					"name": "kineticNode4",
+					"objectId": "drawoJ4u9fu8ei6o",
+					"frameId": "drawoJ4u9fu8ei6okineticAR",
+					"data": {
+						"value": 0,
+						"mode": "f",
+						"unit": "",
+						"unitMin": 0,
+						"unitMax": 1
+					},
+					"x": 16,
+					"y": 93,
+					"scale": 1,
+					"matrix": [],
+					"type": "storeData",
+					"stress": 0,
+					"privateData": {},
+					"publicData": {
+						"ClearPath": true
+					},
+					"frameSizeX": 100,
+					"frameSizeY": 100
+				}
+			},
+			"location": "local",
+			"src": "editor",
+			"privateData": {},
+			"publicData": {},
+			"staticCopy": false,
+			"distanceScale": 1,
+			"groupID": null,
+			"tool": {
+				"addon": "vuforia-spatial-robotic-addon",
+				"interface": "Drawing",
+				"tool": "drawing"
+			}
+		}
+	},
+	"framesHistory": {},
+	"visualization": "ar",
+	"zone": "",
+	"targetSize": {
+		"width": 0.14,
+		"height": 0.164435
+	},
+	"isWorldObject": false,
+	"timestamp": null,
+	"port": 8080,
+	"developer": true
+}
