@@ -2,6 +2,7 @@
 
 var serial = require('./serial.js');
 var server = require('@libraries/hardwareInterfaces');
+var draw = require('./apikey/Node/drawing.js');
 var inverse = require('./inverseKinematics.js');
 var settings = server.loadHardwareInterface(__dirname);
 
