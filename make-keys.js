@@ -7,7 +7,8 @@ const rl = readline.createInterface({
 });
 
 var url = "https://cad.onshape.com"
-const path = '/home/pi/Desktop/RaspberryPi-SpatialToolbox/vuforia-spatial-edge-server/addons/vuforia-spatial-robotic-addon/interfaces/Spike-Drawing/apikey/Node/config/apikey.js'
+const path1 = '/home/pi/Desktop/RaspberryPi-SpatialToolbox/vuforia-spatial-edge-server/addons/vuforia-spatial-robotic-addon/interfaces/Spike-Drawing/apikey/Node/config/apikey.js'
+const path2 = '/home/pi/Desktop/RaspberryPi-SpatialToolbox/vuforia-spatial-edge-server/addons/vuforia-spatial-robotic-addon/interfaces/Drawing/apikey/Node/config/apikey.js'
 
 promptUser();
 
@@ -46,7 +47,8 @@ function makeKeys(url) {
 function writeAPI(url, aKey, sKey) {
     var content = "var prod = {\n\t'baseUrl': '" + url + "',\n\t'accessKey': '" + aKey + "',\n\t'secretKey': '" + sKey + "',\n};\n\nmodule.exports = prod;";
     try {
-        const data = fs.writeFileSync(path, content)
+        const data = fs.writeFileSync(path1, content)
+        const data = fs.writeFileSync(path2, content)
     }
     catch(e){
         console.log(e)

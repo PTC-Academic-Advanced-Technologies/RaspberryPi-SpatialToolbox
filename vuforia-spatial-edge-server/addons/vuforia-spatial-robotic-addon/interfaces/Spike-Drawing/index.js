@@ -79,6 +79,54 @@ if (exports.enabled){
                 default: 0,
                 disabled: false,
                 helpText: "The length (in millimeters) from the second rotating joint to the end effector."
+            },
+            // documentId
+            spikeDocumentId: {
+                value: settings('spikeDocumentId', "did"),
+                type: 'text',
+                default: 'did',
+                disabled: false,
+                helpText: 'The document ID of the Onshape model. Found after /documents/ in the URL.'
+            },
+            // workspaceId
+            spikeWorkspaceId: {
+                value: settings('spikeWorkspaceId', 'wid'), 
+                type: 'text',
+                default: 'wid',
+                disabled: false,
+                helpText: 'The workspace ID of the Onshape model. Found after the /w/ in the URL.'
+            },
+            // elementId
+            spikeElementId: {  
+                value: settings('spikeElementId', 'eid'),
+                type: 'text',
+                default: 'eid',
+                disabled: false,
+                helpText: 'The element ID of the Onshape model. Found after the /e/ in the URL.'
+            },
+            // Feature Name
+            spikeFeatureName: {
+                value: settings('spikeFeatureName', 'VST Drawing'),
+                type: 'text',
+                default: 'VST Drawing',
+                disabled: false,
+                helpText: 'The name of the Onshape feature that will be created.'
+            },
+            // Onshape origin offset in X
+            spikeOnshapeOffsetX: {
+                value: settings('spikeOnshapeOffsetX', 0),
+                type: 'number',
+                default: 0,
+                disabled: false,
+                helpText: 'The horizontal offset from the Onshape origin where you want to being drawing.'
+            },
+            // Onshape origin offset in Y
+            spikeOnshapeOffsetY: {
+                value: settings('spikeOnshapeOffsetY', 0),
+                type: 'number',
+                default: 0,
+                disabled: false,
+                helpText: 'The vertical offset from the Onshape origin where you want to being drawing.'
             }
         };
     }
@@ -90,9 +138,19 @@ if (exports.enabled){
     imageToBaseY = exports.settings.imageToBaseY.value;
     link1Length = exports.settings.link1Length.value;
     link2Length = exports.settings.link2Length.value;
+    documentId = exports.settings.spikeDocumentId.value;
+    workspaceId = exports.settings.spikeWorkspaceId.value;
+    elementId = exports.settings.spikeElementId.value;
+    featureName = exports.settings.spikeFeatureName.value;
+    offsetX = exports.settings.spikeOnshapeOffsetX.value;
+    offsetY = exports.settings.spikeOnshapeOffsetY.value;
 
     if (link1Length != 0 && link2Length != 0) {
         inverse.setLengths(imageToBaseX, imageToBaseY, link1Length, link2Length);
+    }
+
+    if (documentId != 'did' && workspaceId != 'wid' && elementId != 'eid') {
+        draw.setParams(documentId, workspaceId, elementId, featureName);
     }
 
     server.addEventListener('reset', function () {
@@ -267,6 +325,11 @@ function nodeReadCallback(data, checkpointIdx, pathIdx){
                 setTimeout(() => { serial.writePort(motor1 + ".run_to_position(" + Math.round(angle1) + ", 'shortest path', 20)\r\n") }, 0);
                 setTimeout(() => { serial.writePort(motor2 + ".run_to_position(" + Math.round(angle2) + ", 'shortest path', 20)\r\n") }, 1000);
                 inMotion = false
+                onshapeX = checkpointTriggered.posXUR/1000 + offsetX;
+                onshapeY = checkpointTriggered.posYUR/1000 + offsetY;
+                draw.addPoints([onshapeX, onshapeY], function(data){
+                    console.log(data)
+                })
                 setTimeout(() => { server.write("spikeDraw", "kineticAR", activeCheckpointName, 0) }, 3000);
             });
             
