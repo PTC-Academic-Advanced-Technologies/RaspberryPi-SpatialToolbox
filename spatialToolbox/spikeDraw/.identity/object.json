@@ -7,7 +7,7 @@
 	"version": "3.2.2",
 	"deactivated": false,
 	"protocol": "R2",
-	"tcs": "1OJJAP",
+	"tcs": "2zvaRA",
 	"visible": false,
 	"visibleText": false,
 	"visibleEditing": false,
@@ -47,17 +47,14 @@
 						"unitMin": 0,
 						"unitMax": 1
 					},
-					"x": -53,
-					"y": 11,
+					"x": 15,
+					"y": -19,
 					"scale": 1,
 					"matrix": [],
 					"type": "storeData",
 					"stress": 0,
 					"privateData": {},
-					"publicData": {
-						"CheckpointTriggered": 2,
-						"CheckpointStopped": 2
-					},
+					"publicData": {},
 					"frameSizeX": 100,
 					"frameSizeY": 100
 				},
@@ -72,20 +69,15 @@
 						"unitMin": 0,
 						"unitMax": 1
 					},
-					"x": -93,
-					"y": 46,
+					"x": -30,
+					"y": 79,
 					"scale": 1,
 					"matrix": [],
 					"type": "storeData",
 					"stress": 0,
 					"privateData": {},
 					"publicData": {
-						"pathData": [
-							{
-								"index": 0,
-								"checkpoints": []
-							}
-						]
+						"pathData": []
 					},
 					"frameSizeX": 100,
 					"frameSizeY": 100
@@ -101,8 +93,8 @@
 						"unitMin": 0,
 						"unitMax": 1
 					},
-					"x": 86,
-					"y": 27,
+					"x": -62,
+					"y": -90,
 					"scale": 1,
 					"matrix": [],
 					"type": "storeData",
