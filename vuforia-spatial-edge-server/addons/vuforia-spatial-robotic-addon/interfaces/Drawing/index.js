@@ -4,7 +4,7 @@ var server = require('@libraries/hardwareInterfaces');
 var draw = require('./apikey/Node/drawing.js')
 var settings = server.loadHardwareInterface(__dirname);
 
-var TOOL_NAME = "drawAR"; // This is what is made on the webserver for the image target
+var TOOL_NAME = "kineticAR"; // This is what is made on the webserver for the image target
 let objectName = "drawNode"; // This is the name of the folder in spatialToolbox in Documents 
 
 exports.enabled = settings('enabled');

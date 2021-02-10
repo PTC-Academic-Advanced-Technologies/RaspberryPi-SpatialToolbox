@@ -1,5 +1,5 @@
 {
-	"objectId": "spikeDraw_Jj0p6ptb3ey",
+	"objectId": "spikeDraw_b6t5mm3ip6g",
 	"name": "spikeDraw",
 	"matrix": [
 		1,
@@ -25,127 +25,14 @@
 	"version": "3.2.2",
 	"deactivated": false,
 	"protocol": "R2",
-	"tcs": "398fRe",
+	"tcs": "2dU5uC",
 	"visible": false,
 	"visibleText": false,
 	"visibleEditing": false,
 	"memory": {},
 	"memoryCameraMatrix": {},
 	"memoryProjectionMatrix": {},
-	"frames": {
-		"spikeDraw_Jj0p6ptb3eykineticAR": {
-			"objectId": "spikeDraw_Jj0p6ptb3ey",
-			"uuid": "spikeDraw_Jj0p6ptb3eykineticAR",
-			"name": "kineticAR",
-			"visualization": "ar",
-			"ar": {
-				"x": 0,
-				"y": 0,
-				"scale": 1,
-				"matrix": []
-			},
-			"screen": {
-				"x": 0,
-				"y": 0,
-				"scale": 1
-			},
-			"visible": false,
-			"visibleText": false,
-			"visibleEditing": false,
-			"developer": true,
-			"links": {},
-			"nodes": {
-				"spikeDraw_Jj0p6ptb3eykineticARkineticNode1": {
-					"name": "kineticNode1",
-					"objectId": "spikeDraw_Jj0p6ptb3ey",
-					"frameId": "spikeDraw_Jj0p6ptb3eykineticAR",
-					"uuid": "spikeDraw_Jj0p6ptb3eykineticARkineticNode1",
-					"data": {
-						"value": 0,
-						"mode": "f",
-						"unit": "",
-						"unitMin": 0,
-						"unitMax": 1
-					},
-					"x": -14,
-					"y": 15,
-					"scale": 1,
-					"matrix": [],
-					"type": "storeData",
-					"stress": 0,
-					"privateData": {},
-					"publicData": {
-						"data": {}
-					},
-					"frameSizeX": 100,
-					"frameSizeY": 100
-				},
-				"spikeDraw_Jj0p6ptb3eykineticARkineticNode2": {
-					"name": "kineticNode2",
-					"objectId": "spikeDraw_Jj0p6ptb3ey",
-					"frameId": "spikeDraw_Jj0p6ptb3eykineticAR",
-					"uuid": "spikeDraw_Jj0p6ptb3eykineticARkineticNode2",
-					"data": {
-						"value": 0,
-						"mode": "f",
-						"unit": "",
-						"unitMin": 0,
-						"unitMax": 1
-					},
-					"x": 46,
-					"y": -86,
-					"scale": 1,
-					"matrix": [],
-					"type": "storeData",
-					"stress": 0,
-					"privateData": {},
-					"publicData": {
-						"data": {}
-					},
-					"frameSizeX": 100,
-					"frameSizeY": 100
-				},
-				"spikeDraw_Jj0p6ptb3eykineticARkineticNode4": {
-					"name": "kineticNode4",
-					"objectId": "spikeDraw_Jj0p6ptb3ey",
-					"frameId": "spikeDraw_Jj0p6ptb3eykineticAR",
-					"uuid": "spikeDraw_Jj0p6ptb3eykineticARkineticNode4",
-					"data": {
-						"value": 0,
-						"mode": "f",
-						"unit": "",
-						"unitMin": 0,
-						"unitMax": 1
-					},
-					"x": -2,
-					"y": -66,
-					"scale": 1,
-					"matrix": [],
-					"type": "storeData",
-					"stress": 0,
-					"privateData": {},
-					"publicData": {
-						"data": {},
-						"ClearPath": true
-					},
-					"frameSizeX": 100,
-					"frameSizeY": 100
-				}
-			},
-			"location": "local",
-			"src": "editor",
-			"privateData": {},
-			"publicData": {},
-			"staticCopy": false,
-			"distanceScale": 1,
-			"groupID": null,
-			"tool": {
-				"addon": "vuforia-spatial-robotic-addon",
-				"interface": "Spike-Drawing",
-				"tool": "drawing"
-			}
-		}
-	},
+	"frames": {},
 	"framesHistory": {},
 	"visualization": "ar",
 	"zone": "",
@@ -155,6 +42,5 @@
 	},
 	"isWorldObject": false,
 	"timestamp": null,
-	"port": 8080,
-	"developer": true
+	"port": 8080
 }
