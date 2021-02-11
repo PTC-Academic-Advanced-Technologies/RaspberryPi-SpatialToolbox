@@ -130,9 +130,9 @@ function startHardwareInterface() {
         });
         pathData = [];
 
-        // draw.deleteSpline(function(data){
-        //     console.log(data)
-        // })
+        draw.deleteSpline(function(data){
+            console.log(data)
+        })
 
         server.pushUpdatesToDevices("draw");
 

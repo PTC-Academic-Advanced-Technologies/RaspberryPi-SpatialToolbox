@@ -326,8 +326,8 @@ function nodeReadCallback(data, checkpointIdx, pathIdx){
                 setTimeout(() => { serial.writePort(motor1 + ".run_to_position(" + Math.round(angle1) + ", 'shortest path', 20)\r\n") }, 0);
                 setTimeout(() => { serial.writePort(motor2 + ".run_to_position(" + Math.round(angle2) + ", 'shortest path', 20)\r\n") }, 1000);
                 inMotion = false
-                onshapeX = checkpointTriggered.posXUR/1000 + offsetX;
-                onshapeY = checkpointTriggered.posYUR/1000 + offsetY;
+                onshapeX = (checkpointTriggered.posXUR-imageToBaseX)/1000 + offsetX;
+                onshapeY = (checkpointTriggered.posYUR-imageToBaseY)/1000 + offsetY;
                 draw.addPoints([onshapeX, onshapeY], function(data){
                     console.log(data)
                 })
