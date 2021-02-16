@@ -1,5 +1,5 @@
 {
-	"objectId": "draw_L41wkmieixh",
+	"objectId": "draw_Kaqy0bb04dn",
 	"name": "draw",
 	"matrix": [
 		1,
@@ -25,7 +25,7 @@
 	"version": "3.2.2",
 	"deactivated": false,
 	"protocol": "R2",
-	"tcs": "4c81lQ",
+	"tcs": "1y5537",
 	"visible": false,
 	"visibleText": false,
 	"visibleEditing": false,
@@ -33,9 +33,9 @@
 	"memoryCameraMatrix": {},
 	"memoryProjectionMatrix": {},
 	"frames": {
-		"draw_L41wkmieixhkineticAR": {
-			"objectId": "draw_L41wkmieixh",
-			"uuid": "draw_L41wkmieixhkineticAR",
+		"draw_Kaqy0bb04dnkineticAR": {
+			"objectId": "draw_Kaqy0bb04dn",
+			"uuid": "draw_Kaqy0bb04dnkineticAR",
 			"name": "kineticAR",
 			"visualization": "ar",
 			"ar": {
@@ -55,11 +55,11 @@
 			"developer": true,
 			"links": {},
 			"nodes": {
-				"draw_L41wkmieixhkineticARkineticNode1": {
+				"draw_Kaqy0bb04dnkineticARkineticNode1": {
 					"name": "kineticNode1",
-					"objectId": "draw_L41wkmieixh",
-					"frameId": "draw_L41wkmieixhkineticAR",
-					"uuid": "draw_L41wkmieixhkineticARkineticNode1",
+					"objectId": "draw_Kaqy0bb04dn",
+					"frameId": "draw_Kaqy0bb04dnkineticAR",
+					"uuid": "draw_Kaqy0bb04dnkineticARkineticNode1",
 					"data": {
 						"value": 0,
 						"mode": "f",
@@ -67,8 +67,8 @@
 						"unitMin": 0,
 						"unitMax": 1
 					},
-					"x": -17,
-					"y": -55,
+					"x": 50,
+					"y": 29,
 					"scale": 1,
 					"matrix": [],
 					"type": "storeData",
@@ -80,11 +80,11 @@
 					"frameSizeX": 100,
 					"frameSizeY": 100
 				},
-				"draw_L41wkmieixhkineticARkineticNode2": {
+				"draw_Kaqy0bb04dnkineticARkineticNode2": {
 					"name": "kineticNode2",
-					"objectId": "draw_L41wkmieixh",
-					"frameId": "draw_L41wkmieixhkineticAR",
-					"uuid": "draw_L41wkmieixhkineticARkineticNode2",
+					"objectId": "draw_Kaqy0bb04dn",
+					"frameId": "draw_Kaqy0bb04dnkineticAR",
+					"uuid": "draw_Kaqy0bb04dnkineticARkineticNode2",
 					"data": {
 						"value": 0,
 						"mode": "f",
@@ -92,8 +92,8 @@
 						"unitMin": 0,
 						"unitMax": 1
 					},
-					"x": -8,
-					"y": -37,
+					"x": 96,
+					"y": 11,
 					"scale": 1,
 					"matrix": [],
 					"type": "storeData",
@@ -111,11 +111,11 @@
 					"frameSizeX": 100,
 					"frameSizeY": 100
 				},
-				"draw_L41wkmieixhkineticARkineticNode4": {
+				"draw_Kaqy0bb04dnkineticARkineticNode4": {
 					"name": "kineticNode4",
-					"objectId": "draw_L41wkmieixh",
-					"frameId": "draw_L41wkmieixhkineticAR",
-					"uuid": "draw_L41wkmieixhkineticARkineticNode4",
+					"objectId": "draw_Kaqy0bb04dn",
+					"frameId": "draw_Kaqy0bb04dnkineticAR",
+					"uuid": "draw_Kaqy0bb04dnkineticARkineticNode4",
 					"data": {
 						"value": 0,
 						"mode": "f",
@@ -123,8 +123,8 @@
 						"unitMin": 0,
 						"unitMax": 1
 					},
-					"x": -11,
-					"y": -95,
+					"x": 33,
+					"y": -21,
 					"scale": 1,
 					"matrix": [],
 					"type": "storeData",
