@@ -6,7 +6,7 @@ var draw = require('./apikey/Node/drawing.js');
 var inverse = require('./inverseKinematics.js');
 var settings = server.loadHardwareInterface(__dirname);
 
-var TOOL_NAME = "spikeDrawTool"; // This is what is made on the webserver for the image target
+var TOOL_NAME = "kineticAR"; // This is what is made on the webserver for the image target
 let objectName = "spikeDraw"; // This is the name of the folder in spatialToolbox in Documents 
 
 exports.enabled = settings('enabled');
