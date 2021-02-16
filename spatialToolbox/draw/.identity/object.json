@@ -1,13 +1,31 @@
 {
-	"objectId": "drawoJ4u9fu8ei6o",
+	"objectId": "draw_L41wkmieixh",
 	"name": "draw",
-	"matrix": [],
+	"matrix": [
+		1,
+		0,
+		0,
+		0,
+		0,
+		1,
+		0,
+		0,
+		0,
+		0,
+		1,
+		0,
+		0,
+		0,
+		0,
+		1
+	],
+	"worldId": null,
 	"isAnchor": false,
 	"ip": "192.168.7.106",
 	"version": "3.2.2",
 	"deactivated": false,
 	"protocol": "R2",
-	"tcs": "3pUJr0",
+	"tcs": "4c81lQ",
 	"visible": false,
 	"visibleText": false,
 	"visibleEditing": false,
@@ -15,8 +33,9 @@
 	"memoryCameraMatrix": {},
 	"memoryProjectionMatrix": {},
 	"frames": {
-		"drawoJ4u9fu8ei6okineticAR": {
-			"objectId": "drawoJ4u9fu8ei6o",
+		"draw_L41wkmieixhkineticAR": {
+			"objectId": "draw_L41wkmieixh",
+			"uuid": "draw_L41wkmieixhkineticAR",
 			"name": "kineticAR",
 			"visualization": "ar",
 			"ar": {
@@ -36,10 +55,11 @@
 			"developer": true,
 			"links": {},
 			"nodes": {
-				"drawoJ4u9fu8ei6okineticARkineticNode1": {
+				"draw_L41wkmieixhkineticARkineticNode1": {
 					"name": "kineticNode1",
-					"objectId": "drawoJ4u9fu8ei6o",
-					"frameId": "drawoJ4u9fu8ei6okineticAR",
+					"objectId": "draw_L41wkmieixh",
+					"frameId": "draw_L41wkmieixhkineticAR",
+					"uuid": "draw_L41wkmieixhkineticARkineticNode1",
 					"data": {
 						"value": 0,
 						"mode": "f",
@@ -47,36 +67,40 @@
 						"unitMin": 0,
 						"unitMax": 1
 					},
-					"x": -5,
-					"y": 69,
-					"scale": 1,
-					"matrix": [],
-					"type": "storeData",
-					"stress": 0,
-					"privateData": {},
-					"publicData": {},
-					"frameSizeX": 100,
-					"frameSizeY": 100
-				},
-				"drawoJ4u9fu8ei6okineticARkineticNode2": {
-					"name": "kineticNode2",
-					"objectId": "drawoJ4u9fu8ei6o",
-					"frameId": "drawoJ4u9fu8ei6okineticAR",
-					"data": {
-						"value": 0,
-						"mode": "f",
-						"unit": "",
-						"unitMin": 0,
-						"unitMax": 1
-					},
-					"x": -16,
-					"y": -74,
+					"x": -17,
+					"y": -55,
 					"scale": 1,
 					"matrix": [],
 					"type": "storeData",
 					"stress": 0,
 					"privateData": {},
 					"publicData": {
+						"data": {}
+					},
+					"frameSizeX": 100,
+					"frameSizeY": 100
+				},
+				"draw_L41wkmieixhkineticARkineticNode2": {
+					"name": "kineticNode2",
+					"objectId": "draw_L41wkmieixh",
+					"frameId": "draw_L41wkmieixhkineticAR",
+					"uuid": "draw_L41wkmieixhkineticARkineticNode2",
+					"data": {
+						"value": 0,
+						"mode": "f",
+						"unit": "",
+						"unitMin": 0,
+						"unitMax": 1
+					},
+					"x": -8,
+					"y": -37,
+					"scale": 1,
+					"matrix": [],
+					"type": "storeData",
+					"stress": 0,
+					"privateData": {},
+					"publicData": {
+						"data": {},
 						"pathData": [
 							{
 								"index": 0,
@@ -87,10 +111,11 @@
 					"frameSizeX": 100,
 					"frameSizeY": 100
 				},
-				"drawoJ4u9fu8ei6okineticARkineticNode4": {
+				"draw_L41wkmieixhkineticARkineticNode4": {
 					"name": "kineticNode4",
-					"objectId": "drawoJ4u9fu8ei6o",
-					"frameId": "drawoJ4u9fu8ei6okineticAR",
+					"objectId": "draw_L41wkmieixh",
+					"frameId": "draw_L41wkmieixhkineticAR",
+					"uuid": "draw_L41wkmieixhkineticARkineticNode4",
 					"data": {
 						"value": 0,
 						"mode": "f",
@@ -98,14 +123,15 @@
 						"unitMin": 0,
 						"unitMax": 1
 					},
-					"x": 16,
-					"y": 93,
+					"x": -11,
+					"y": -95,
 					"scale": 1,
 					"matrix": [],
 					"type": "storeData",
 					"stress": 0,
 					"privateData": {},
 					"publicData": {
+						"data": {},
 						"ClearPath": true
 					},
 					"frameSizeX": 100,
@@ -130,8 +156,8 @@
 	"visualization": "ar",
 	"zone": "",
 	"targetSize": {
-		"width": 0.14,
-		"height": 0.164435
+		"width": 0.3,
+		"height": 0.3
 	},
 	"isWorldObject": false,
 	"timestamp": null,

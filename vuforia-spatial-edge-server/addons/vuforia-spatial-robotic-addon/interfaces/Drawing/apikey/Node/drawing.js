@@ -37,6 +37,7 @@ var deleteSpline = function(cb) {
             })
         }
     })
+    onshapePoints = [];
     cb(true)
 }
 
