@@ -6,8 +6,8 @@ var draw = require('./apikey/Node/drawing.js');
 var inverse = require('./inverseKinematics.js');
 var settings = server.loadHardwareInterface(__dirname);
 
-var TOOL_NAME = "spikeDraw"; // This is what is made on the webserver for the image target
-let objectName = "spikeDrawNode"; // This is the name of the folder in spatialToolbox in Documents 
+var TOOL_NAME = "spikeDrawTool"; // This is what is made on the webserver for the image target
+let objectName = "spikeDraw"; // This is the name of the folder in spatialToolbox in Documents 
 
 exports.enabled = settings('enabled');
 exports.configurable = true;
@@ -171,30 +171,30 @@ function startHardwareInterface() {
     server.setTool('spikeDraw', 'kineticAR', 'drawing', __dirname);
     server.removeAllNodes('spikeDraw', 'kineticAR');
 
-    server.addNode("spikeDraw", "kineticAR", "kineticNode1", "storeData");     // Node for checkpoint stop feedback
-    server.addNode("spikeDraw", "kineticAR", "kineticNode2", "storeData");     // Node for the data path. Follow Checkpoints
-    server.addNode("spikeDraw", "kineticAR", "kineticNode4", "storeData");     // Node for cleaning the path
+    server.addNode(objectName, TOOL_NAME, "kineticNode1", "storeData");     // Node for checkpoint stop feedback
+    server.addNode(objectName, TOOL_NAME, "kineticNode2", "storeData");     // Node for the data path. Follow Checkpoints
+    server.addNode(objectName, TOOL_NAME, "kineticNode4", "storeData");     // Node for cleaning the path
 
-    server.addPublicDataListener("spikeDraw", "kineticAR", "kineticNode4","ClearPath",function (data) {
+    server.addPublicDataListener(objectName, TOOL_NAME, "kineticNode4","ClearPath",function (data) {
 
         console.log("spikeDraw:    -   -   -   Frame has requested to clear path: ", data);
 
         pathData.forEach(path => {
             path.checkpoints.forEach(checkpoint => {
-                server.removeNode("spikeDraw", "kineticAR", checkpoint.name);
+                server.removeNode(objectName, TOOL_NAME, checkpoint.name);
             });
             path.checkpoints = [];
         });
         pathData = [];
 
-        server.pushUpdatesToDevices("spikeDraw");
+        server.pushUpdatesToDevices(objectName);
 
         inMotion = false;
         activeCheckpointName = null;
 
     });
 
-    server.addPublicDataListener("spikeDraw", "kineticAR", "kineticNode2","pathData",function (data){
+    server.addPublicDataListener(objectName, TOOL_NAME, "kineticNode2","pathData",function (data){
         data.forEach(framePath => {             // We go through array of paths
 
             let pathExists = false;
@@ -223,13 +223,13 @@ function startHardwareInterface() {
                                 if (serverCheckpoint.orientation !== frameCheckpoint.orientation) serverCheckpoint.orientation = frameCheckpoint.orientation;
 
                                 // <node>, <frame>, <Node>, x, y, scale, matrix
-                                server.moveNode("spikeDraw", "kineticAR", frameCheckpoint.name, frameCheckpoint.posX, frameCheckpoint.posZ, 0.3,[
+                                server.moveNode(objectName, TOOL_NAME, frameCheckpoint.name, frameCheckpoint.posX, frameCheckpoint.posZ, 0.3,[
                                     1, 0, 0, 0,
                                     0, 1, 0, 0,
                                     0, 0, 1, 0,
                                     0, 0, frameCheckpoint.posY * 3, 1
                                 ], true);
-                                server.pushUpdatesToDevices("spikeDraw");
+                                server.pushUpdatesToDevices(objectName);
 
                                 // Number and position of the current checkpoint in this loop
                                 //let checkpointNumber = parseInt(frameCheckpoint.name.slice(-1));
@@ -248,24 +248,24 @@ function startHardwareInterface() {
                         if (!exists){
                             serverPath.checkpoints.push(frameCheckpoint);
 
-                            server.addNode("spikeDraw", "kineticAR", frameCheckpoint.name, "node");
+                            server.addNode(objectName, TOOL_NAME, frameCheckpoint.name, "node");
 
                             console.log('spikeDraw: NEW ' + frameCheckpoint.name + ' | position: ', frameCheckpoint.posX, frameCheckpoint.posY, frameCheckpoint.posZ);
 
                             // <node>, <frame>, <Node>, x, y, scale, matrix
-                            server.moveNode("spikeDraw", "kineticAR", frameCheckpoint.name, frameCheckpoint.posX, frameCheckpoint.posZ, 0.3,[
+                            server.moveNode(objectName, TOOL_NAME, frameCheckpoint.name, frameCheckpoint.posX, frameCheckpoint.posZ, 0.3,[
                                 1, 0, 0, 0,
                                 0, 1, 0, 0,
                                 0, 0, 1, 0,
                                 0, 0, frameCheckpoint.posY * 3, 1
                             ], true);
 
-                            server.pushUpdatesToDevices("spikeDraw");
+                            server.pushUpdatesToDevices(objectName);
 
                             console.log('spikeDraw: ************** Add read listener to ', frameCheckpoint.name);
 
                             // Add listener to node
-                            server.addReadListener("spikeDraw", "kineticAR", frameCheckpoint.name, function(data){
+                            server.addReadListener(objectName, TOOL_NAME, frameCheckpoint.name, function(data){
 
                                 let indexValues = frameCheckpoint.name.split("_")[1];
                                 let pathIdx = parseInt(indexValues.split(":")[0]);
@@ -331,10 +331,10 @@ function nodeReadCallback(data, checkpointIdx, pathIdx){
                 draw.addPoints([onshapeX, onshapeY], function(data){
                     console.log(data)
                 })
-                setTimeout(() => { server.write("spikeDraw", "kineticAR", activeCheckpointName, 0) }, 3000);
+                setTimeout(() => { server.write(objectName, TOOL_NAME, activeCheckpointName, 0) }, 3000);
             });
             
-            server.writePublicData("spikeDraw", "kineticAR", "kineticNode1", "CheckpointTriggered", checkpointIdx);          // Alert frame of new checkpoint goal
+            server.writePublicData(objectName, TOOL_NAME, "kineticNode1", "CheckpointTriggered", checkpointIdx);          // Alert frame of new checkpoint goal
 
         } else {
             console.log('spikeDraw: WARNING - This checkpoint was already active!');
@@ -362,7 +362,7 @@ function nodeReadCallback(data, checkpointIdx, pathIdx){
                 console.log('Checkpoint reached: ', checkpointTriggered.name);
                 checkpointTriggered.active = 0; // This checkpoint gets deactivated
 
-                server.writePublicData("spikeDraw", "kineticAR", "kineticNode1", "CheckpointStopped", checkpointIdx);
+                server.writePublicData(objectName, TOOL_NAME, "kineticNode1", "CheckpointStopped", checkpointIdx);
 
                 let nextCheckpointToTrigger = null;
 
@@ -370,7 +370,7 @@ function nodeReadCallback(data, checkpointIdx, pathIdx){
                     nextCheckpointToTrigger = pathData[pathIdx].checkpoints[checkpointIdx + 1];
 
                     console.log('Next checkpoint triggered: ', nextCheckpointToTrigger.name);
-                    server.write("spikeDraw", "kineticAR", nextCheckpointToTrigger.name, 1);
+                    server.write(objectName, TOOL_NAME, nextCheckpointToTrigger.name, 1);
 
                 } else {                                                                            // We reached end of path
 

@@ -4,8 +4,8 @@ var server = require('@libraries/hardwareInterfaces');
 var draw = require('./apikey/Node/drawing.js')
 var settings = server.loadHardwareInterface(__dirname);
 
-var TOOL_NAME = "kineticAR"; // This is what is made on the webserver for the image target
-let objectName = "drawNode"; // This is the name of the folder in spatialToolbox in Documents 
+var TOOL_NAME = "drawTool"; // This is what is made on the webserver for the image target
+let objectName = "draw"; // This is the name of the folder in spatialToolbox in Documents 
 
 exports.enabled = settings('enabled');
 exports.configurable = true;
@@ -114,17 +114,17 @@ function startHardwareInterface() {
     server.setTool('draw', 'kineticAR', 'drawing', __dirname);
     server.removeAllNodes('draw', 'kineticAR');
 
-    server.addNode("draw", TOOL_NAME, "kineticNode1", "storeData");     // Node for checkpoint stop feedback
-    server.addNode("draw", TOOL_NAME, "kineticNode2", "storeData");     // Node for the data path. Follow Checkpoints
-    server.addNode("draw", TOOL_NAME, "kineticNode4", "storeData");     // Node for cleaning the path
+    server.addNode(objectName, TOOL_NAME, "kineticNode1", "storeData");     // Node for checkpoint stop feedback
+    server.addNode(objectName, TOOL_NAME, "kineticNode2", "storeData");     // Node for the data path. Follow Checkpoints
+    server.addNode(objectName, TOOL_NAME, "kineticNode4", "storeData");     // Node for cleaning the path
 
-    server.addPublicDataListener("draw", TOOL_NAME, "kineticNode4","ClearPath",function (data) {
+    server.addPublicDataListener(objectName, TOOL_NAME, "kineticNode4","ClearPath",function (data) {
 
         console.log("draw:    -   -   -   Frame has requested to clear path: ", data);
 
         pathData.forEach(path => {
             path.checkpoints.forEach(checkpoint => {
-                server.removeNode("draw", TOOL_NAME, checkpoint.name);
+                server.removeNode(objectName, TOOL_NAME, checkpoint.name);
             });
             path.checkpoints = [];
         });
@@ -134,14 +134,14 @@ function startHardwareInterface() {
             console.log(data)
         })
 
-        server.pushUpdatesToDevices("draw");
+        server.pushUpdatesToDevices(objectName);
 
         inMotion = false;
         activeCheckpointName = null;
 
     });
 
-    server.addPublicDataListener("draw", TOOL_NAME, "kineticNode2","pathData",function (data){
+    server.addPublicDataListener(objectName, TOOL_NAME, "kineticNode2","pathData",function (data){
         data.forEach(framePath => {             // We go through array of paths
 
             let pathExists = false;
@@ -170,13 +170,13 @@ function startHardwareInterface() {
                                 if (serverCheckpoint.orientation !== frameCheckpoint.orientation) serverCheckpoint.orientation = frameCheckpoint.orientation;
 
                                 // <node>, <frame>, <Node>, x, y, scale, matrix
-                                server.moveNode("draw", TOOL_NAME, frameCheckpoint.name, frameCheckpoint.posX, frameCheckpoint.posZ, 0.3,[
+                                server.moveNode(objectName, TOOL_NAME, frameCheckpoint.name, frameCheckpoint.posX, frameCheckpoint.posZ, 0.3,[
                                     1, 0, 0, 0,
                                     0, 1, 0, 0,
                                     0, 0, 1, 0,
                                     0, 0, frameCheckpoint.posY * 3, 1
                                 ], true);
-                                server.pushUpdatesToDevices("draw");
+                                server.pushUpdatesToDevices(objectName);
                             }
                         });
 
@@ -184,24 +184,24 @@ function startHardwareInterface() {
                         if (!exists){
                             serverPath.checkpoints.push(frameCheckpoint);
 
-                            server.addNode("draw", TOOL_NAME, frameCheckpoint.name, "node");
+                            server.addNode(objectName, TOOL_NAME, frameCheckpoint.name, "node");
 
                             console.log('draw: NEW ' + frameCheckpoint.name + ' | position: ', frameCheckpoint.posX, frameCheckpoint.posY, frameCheckpoint.posZ);
 
                             // <node>, <frame>, <Node>, x, y, scale, matrix
-                            server.moveNode("draw", TOOL_NAME, frameCheckpoint.name, frameCheckpoint.posX, frameCheckpoint.posZ, 0.3,[
+                            server.moveNode(objectName, TOOL_NAME, frameCheckpoint.name, frameCheckpoint.posX, frameCheckpoint.posZ, 0.3,[
                                 1, 0, 0, 0,
                                 0, 1, 0, 0,
                                 0, 0, 1, 0,
                                 0, 0, frameCheckpoint.posY * 3, 1
                             ], true);
 
-                            server.pushUpdatesToDevices("draw");
+                            server.pushUpdatesToDevices(objectName);
 
                             console.log('draw: ************** Add read listener to ', frameCheckpoint.name);
 
                             // Add listener to node
-                            server.addReadListener("draw", TOOL_NAME, frameCheckpoint.name, function(data){
+                            server.addReadListener(objectName, TOOL_NAME, frameCheckpoint.name, function(data){
 
                                 let indexValues = frameCheckpoint.name.split("_")[1];
                                 let pathIdx = parseInt(indexValues.split(":")[0]);
@@ -256,9 +256,9 @@ function nodeReadCallback(data, checkpointIdx, pathIdx){
             checkpointTriggered.active = 1; // This checkpoint gets activated
 
             inMotion = false
-            server.write("draw", TOOL_NAME, activeCheckpointName, 0)
+            server.write(objectName, TOOL_NAME, activeCheckpointName, 0)
             
-            server.writePublicData("draw", TOOL_NAME, "kineticNode1", "CheckpointTriggered", checkpointIdx);          // Alert frame of new checkpoint goal
+            server.writePublicData(objectName, TOOL_NAME, "kineticNode1", "CheckpointTriggered", checkpointIdx);          // Alert frame of new checkpoint goal
 
         } else {
             console.log('draw: WARNING - This checkpoint was already active!');
@@ -286,7 +286,7 @@ function nodeReadCallback(data, checkpointIdx, pathIdx){
                 console.log('Checkpoint reached: ', checkpointTriggered.name);
                 checkpointTriggered.active = 0; // This checkpoint gets deactivated
 
-                server.writePublicData("draw", TOOL_NAME, "kineticNode1", "CheckpointStopped", checkpointIdx);
+                server.writePublicData(objectName, TOOL_NAME, "kineticNode1", "CheckpointStopped", checkpointIdx);
 
                 let nextCheckpointToTrigger = null;
 
@@ -294,7 +294,7 @@ function nodeReadCallback(data, checkpointIdx, pathIdx){
                     nextCheckpointToTrigger = pathData[pathIdx].checkpoints[checkpointIdx + 1];
 
                     console.log('Next checkpoint triggered: ', nextCheckpointToTrigger.name);
-                    server.write("draw", TOOL_NAME, nextCheckpointToTrigger.name, 1);
+                    server.write(objectName, TOOL_NAME, nextCheckpointToTrigger.name, 1);
 
                 } else {                                                                            // We reached end of path
 
