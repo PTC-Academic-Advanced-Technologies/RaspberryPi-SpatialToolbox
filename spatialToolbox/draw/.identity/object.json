@@ -67,8 +67,8 @@
 						"unitMin": 0,
 						"unitMax": 1
 					},
-					"x": 50,
-					"y": 29,
+					"x": 32,
+					"y": 62,
 					"scale": 1,
 					"matrix": [],
 					"type": "storeData",
@@ -92,8 +92,8 @@
 						"unitMin": 0,
 						"unitMax": 1
 					},
-					"x": 96,
-					"y": 11,
+					"x": 59,
+					"y": -54,
 					"scale": 1,
 					"matrix": [],
 					"type": "storeData",
@@ -104,7 +104,19 @@
 						"pathData": [
 							{
 								"index": 0,
-								"checkpoints": []
+								"checkpoints": [
+									{
+										"name": "checkpoint_0:0",
+										"active": 0,
+										"posX": 36.22358153751579,
+										"posY": -0.000014011016688186828,
+										"posZ": 35.83133750219105,
+										"posXUR": 121.27429971362058,
+										"posYUR": -14.426482739934862,
+										"posZUR": 489.7316159025644,
+										"orientation": 0
+									}
+								]
 							}
 						]
 					},
@@ -123,8 +135,8 @@
 						"unitMin": 0,
 						"unitMax": 1
 					},
-					"x": 33,
-					"y": -21,
+					"x": -41,
+					"y": 47,
 					"scale": 1,
 					"matrix": [],
 					"type": "storeData",
@@ -136,6 +148,50 @@
 					},
 					"frameSizeX": 100,
 					"frameSizeY": 100
+				},
+				"draw_Kaqy0bb04dnkineticARcheckpoint_0:0": {
+					"name": "checkpoint_0:0",
+					"objectId": "draw_Kaqy0bb04dn",
+					"frameId": "draw_Kaqy0bb04dnkineticAR",
+					"uuid": "draw_Kaqy0bb04dnkineticARcheckpoint_0:0",
+					"data": {
+						"value": 0,
+						"mode": "f",
+						"unit": "",
+						"unitMin": 0,
+						"unitMax": 1
+					},
+					"x": 36.22358153751579,
+					"y": 35.83133750219105,
+					"scale": 0.3,
+					"matrix": [
+						1,
+						0,
+						0,
+						0,
+						0,
+						1,
+						0,
+						0,
+						0,
+						0,
+						1,
+						0,
+						0,
+						0,
+						-0.000042033050064560484,
+						1
+					],
+					"type": "node",
+					"stress": 0,
+					"privateData": {},
+					"publicData": {
+						"default": 50
+					},
+					"frameSizeX": 100,
+					"frameSizeY": 100,
+					"loyalty": "object",
+					"attachToGroundPlane": true
 				}
 			},
 			"location": "local",
