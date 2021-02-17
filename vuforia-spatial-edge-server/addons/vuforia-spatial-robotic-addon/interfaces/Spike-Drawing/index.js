@@ -6,7 +6,7 @@ var draw = require('./apikey/Node/drawing.js');
 var inverse = require('./inverseKinematics.js');
 var settings = server.loadHardwareInterface(__dirname);
 
-var TOOL_NAME = "kineticAR"; // This is what is made on the webserver for the image target
+var TOOL_NAME = "spikeKineticAR"; // This is what is made on the webserver for the image target
 let objectName = "spikeDraw"; // This is the name of the folder in spatialToolbox in Documents 
 
 exports.enabled = settings('enabled');
@@ -167,9 +167,9 @@ function startHardwareInterface() {
 
     server.enableDeveloperUI(true)
 
-    console.log('spikeDraw: Setting default tool to drawing');
-    server.setTool('spikeDraw', 'kineticAR', 'drawing', __dirname);
-    server.removeAllNodes('spikeDraw', 'kineticAR');
+    console.log('spikeDraw: Setting default tool to spikeDrawing');
+    server.setTool(objectName, TOOL_NAME, 'spikeDrawing', __dirname);
+    server.removeAllNodes(objectName, TOOL_NAME);
 
     server.addNode(objectName, TOOL_NAME, "kineticNode1", "storeData");     // Node for checkpoint stop feedback
     server.addNode(objectName, TOOL_NAME, "kineticNode2", "storeData");     // Node for the data path. Follow Checkpoints
