@@ -16,7 +16,7 @@
   - If you have a Mac and security preferences stop you from opening it, navigate to the Applications folder in Finder and right-click on the Imager to open it. You should then have the option to open it and disregard the warning.
 - Click on the Choose OS button and select the Raspberry Pi OS (32-bit).
 
-![Image of the OS](https://https://github.com/PTC-Academic-Advanced-Technologies/RaspberryPi-SpatialToolbox/master/Choose OS.jpeg?raw=true)
+![Image of the OS](https://https://github.com/PTC-Academic-Advanced-Technologies/RaspberryPi-SpatialToolbox/master/Documentation-Images/Choose-OS.jpeg?raw=true)
 
 - Choose the SD card you want to flash the image to.
   - If you don&#39;t see your SD card, make sure it is plugged in properly. Check Finder or File Explorer to see if it appears on your machine.
