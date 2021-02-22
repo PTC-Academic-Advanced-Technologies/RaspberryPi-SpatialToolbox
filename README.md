@@ -1,3 +1,5 @@
+![Checkpoints Working](Documentation-Images/Checkpoints.gif)
+
 # **Table of Contents**
 
 1. Install Raspberry Pi OS onto a MicroSD Card
