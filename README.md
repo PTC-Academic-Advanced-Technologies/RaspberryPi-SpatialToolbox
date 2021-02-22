@@ -29,7 +29,7 @@ Note: If you have previously set up a Raspberry Pi and have a preferred method, 
 - If you have a USB keyboard, USB mouse, and either a HDMI cord for the 3 Series or a micro HDMI cord for the 4 Series to connect to a display, you should be able to access the Raspberry Pi as if it was a Linux machine. Follow these steps:
   - Insert the microSD card into the bottom of the Raspberry Pi.
 
-![SD Card in the Pi](Documentation-Images/SD-Card-Placement.jpg)
+![SD Card in the Pi](Documentation-Images/SD-Card-Placement.jpg = 250x250)
 
   - Provide power to the Raspberry Pi (MicroUSB for the 3 Series, USB-C for the 4 series).
   - Connect your peripherals (keyboard, mouse, and display). You should see a screen resembling the desktop of a Linux machine. This is your Raspberry Pi&#39;s desktop.
