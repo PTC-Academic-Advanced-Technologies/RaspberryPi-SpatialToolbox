@@ -49,13 +49,13 @@ update\_config=1
 
 network={
 
-ssid=&quot;your\_wifi\_ssid&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;ssid=&quot;your\_wifi\_ssid&quot;
 
-scan\_ssid=1
+&nbsp;&nbsp;&nbsp;&nbsp;scan\_ssid=1
 
-psk=&quot;your\_wifi\_password&quot;
+&nbsp;&nbsp;&nbsp;&nbsp;psk=&quot;your\_wifi\_password&quot;
 
-key\_mgmt=WPA-PSK
+&nbsp;&nbsp;&nbsp;&nbsp;key\_mgmt=WPA-PSK
 
 }
 
@@ -66,11 +66,11 @@ key\_mgmt=WPA-PSK
   - Open terminal on Mac or Command Prompt on Windows. Run the command &quot;ping raspberrypi.local&quot;.
   - You should see the IP address of the Raspberry Pi appear. Provided this is the only Raspberry Pi on your network, this is the one you want to connect to.
 
-![Output from Ping](Documentation-Images/Ping-RPI.png)
+![Output from Ping](Documentation-Images/Ping-RPi.png)
 
   - You can now run the command &quot;ssh pi@192.168.7.131&quot; (replace with your IP address). It will ask you for the password, which by default is &quot;raspberry&quot;.
 
-![Successful SSH](Documentation-Images/SSH-PI.png)
+![Successful SSH](Documentation-Images/SSH-Pi.png)
 
   - You are now successfully ssh&#39;d into the Raspberry Pi. Run the command &quot;sudo raspi-config&quot;. This will allow you to change some settings of the Raspberry Pi. You should see the screen below.
 
@@ -168,7 +168,7 @@ Note: if you are not using a Spike Prime you can skip this step.
 
 - If you don&#39;t already have the Vuforia Spatial Toolbox App, download it from the App Store. Note: It is only available on iOS currently.
 
-<img src="Documentation-Images/VST-App.jpg" width="234" height="413">
+<img src="Documentation-Images/VST-App.jpeg" width="234" height="413">
 
 - If you want to become more familiar with the Vuforia Spatial Toolbox at any point, there is documentation here: [Spatial Toolbox Documentation](https://spatialtoolbox.vuforia.com/docs/use). The Tufts CEEO also created some tutorials on using the Spatial Toolbox here: [CEEO Innovations YouTube Playlist](https://www.youtube.com/watch?v=3wkmBDgpb34&amp;list=PLhL0fv9JyKMaWhaHmm21J6mgpp841zYYw).
 - Open the app. You should see on the right side of your screen 5 buttons. The 4th one down is the Settings button. Click on the Settings button.
