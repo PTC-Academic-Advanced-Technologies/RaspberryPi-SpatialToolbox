@@ -130,9 +130,9 @@ network={
 
 - Depending on whether you plan to use a Spike Prime or not, either turn on the Spike-Drawing interface or the Drawing interface.
 
-![Drawing Settings](Documentation-Images/Drawing-Settings.jpg)
+![Drawing Settings](Documentation-Images/Drawing-Setting.jpg)
 
-![Spike Settings](Documentation-Images/Spike-Settings.jpg)
+![Spike Settings](Documentation-Images/Spike-Setting.jpg)
 
 - Once you have turned your desired interface on, you should see a setting wheel appear next to the interface. If you don&#39;t see one right away, try refreshing the page. Click on the settings wheel.
 - There is a list of parameters you can edit here. They are as follows:
