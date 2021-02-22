@@ -196,7 +196,7 @@ Note: if you are not using a Spike Prime you can skip this step.
 - Open the Vuforia Spatial Toolbox App on your phone and once it loads, point your phone at the image target for the interface you want to use.
   - If you are using the Spike Prime, make sure the Spike connects before you open the app.
 
-<img src="Documentation-Images/Draw-Image-Target.jpg" width="330" height="393"> <img src="Documentation-Images/Spike-Draw-Target.jpg" width="355" height="512">
+<img src="Documentation-Images/Draw-Image-Target.jpg" width="430" height="512"> <img src="Documentation-Images/Spike-Draw-Target.jpg" width="355" height="512">
 
 - You should see three white cubes appear on the image target. One of the cubes is placed on the center of your image target. Another is placed at the origin for the checkpoints you will be placing. These two should be close to or exactly on top of each other.
 - The third white cube is the location of the ground plane for the app. The exact position of this cube doesn&#39;t matter, but it is important that the ground plane is on the same plane as the surface of where you will be placing checkpoints.
