@@ -29,7 +29,7 @@ Note: If you have previously set up a Raspberry Pi and have a preferred method, 
 - If you have a USB keyboard, USB mouse, and either a HDMI cord for the 3 Series or a micro HDMI cord for the 4 Series to connect to a display, you should be able to access the Raspberry Pi as if it was a Linux machine. Follow these steps:
   - Insert the microSD card into the bottom of the Raspberry Pi.
 
-!<img src="Documentation-Images/SD-Card-Placement.jpg" width="100" height="100">
+<img src="Documentation-Images/SD-Card-Placement.jpg" width="372" height="505">
 
   - Provide power to the Raspberry Pi (MicroUSB for the 3 Series, USB-C for the 4 series).
   - Connect your peripherals (keyboard, mouse, and display). You should see a screen resembling the desktop of a Linux machine. This is your Raspberry Pi&#39;s desktop.
@@ -168,7 +168,7 @@ Note: if you are not using a Spike Prime you can skip this step.
 
 - If you don&#39;t already have the Vuforia Spatial Toolbox App, download it from the App Store. Note: It is only available on iOS currently.
 
-![Vuforia Spatial Toolbox App Store](Documentation-Images/VST-App.jpeg)
+<img src="Documentation-Images/VST-App.jpg" width="234" height="413">
 
 - If you want to become more familiar with the Vuforia Spatial Toolbox at any point, there is documentation here: [Spatial Toolbox Documentation](https://spatialtoolbox.vuforia.com/docs/use). The Tufts CEEO also created some tutorials on using the Spatial Toolbox here: [CEEO Innovations YouTube Playlist](https://www.youtube.com/watch?v=3wkmBDgpb34&amp;list=PLhL0fv9JyKMaWhaHmm21J6mgpp841zYYw).
 - Open the app. You should see on the right side of your screen 5 buttons. The 4th one down is the Settings button. Click on the Settings button.
@@ -196,7 +196,7 @@ Note: if you are not using a Spike Prime you can skip this step.
 - Open the Vuforia Spatial Toolbox App on your phone and once it loads, point your phone at the image target for the interface you want to use.
   - If you are using the Spike Prime, make sure the Spike connects before you open the app.
 
-![Draw Image Target](Documentation-Images/Draw-Image-Target.jpg) ![Spike Image Target](Documentation-Images/Spike-Draw-Target.jpg)
+<img src="Documentation-Images/Draw-Image-Target.jpg" width="330" height="393"> <img src="Documentation-Images/Spike-Draw-Target.jpg" width="355" height="512">
 
 - You should see three white cubes appear on the image target. One of the cubes is placed on the center of your image target. Another is placed at the origin for the checkpoints you will be placing. These two should be close to or exactly on top of each other.
 - The third white cube is the location of the ground plane for the app. The exact position of this cube doesn&#39;t matter, but it is important that the ground plane is on the same plane as the surface of where you will be placing checkpoints.
