@@ -58,13 +58,13 @@ Note: If you have previously set up a Raspberry Pi and have a preferred method, 
 
   network={
 
-  &nbsp;&nbsp;&nbsp;&nbsp;ssid=&quot;your\_wifi\_ssid&quot;
+      ssid=&quot;your\_wifi\_ssid&quot;
 
-  &nbsp;&nbsp;&nbsp;&nbsp;scan\_ssid=1
+      scan\_ssid=1
 
-  &nbsp;&nbsp;&nbsp;&nbsp;psk=&quot;your\_wifi\_password&quot;
+      psk=&quot;your\_wifi\_password&quot;
 
-  &nbsp;&nbsp;&nbsp;&nbsp;key\_mgmt=WPA-PSK
+      key\_mgmt=WPA-PSK
 
   }
   ```
