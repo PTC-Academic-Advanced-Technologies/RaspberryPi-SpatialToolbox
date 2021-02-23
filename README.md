@@ -1,5 +1,5 @@
 <p align="center">
-<img src="Documentation-Images/Checkpoints.gif">
+<img src="Documentation-Images/Checkpoints.gif" width="700", height="394">
 </p>
 
 # **Table of Contents**
@@ -201,7 +201,7 @@ Note: if you are not using a Spike Prime you can skip this step.
 - If you don&#39;t already have the Vuforia Spatial Toolbox App, download it from the App Store. Note: It is only available on iOS currently.
 
 <p align="center">
-<img src="Documentation-Images/VST-App.jpeg" width="234" height="413">
+<img src="Documentation-Images/VST-App.jpeg" width="351" height="620">
 </p>
 
 - If you want to become more familiar with the Vuforia Spatial Toolbox at any point, there is documentation here: [Spatial Toolbox Documentation](https://spatialtoolbox.vuforia.com/docs/use). The Tufts CEEO also created some tutorials on using the Spatial Toolbox here: [CEEO Innovations YouTube Playlist](https://www.youtube.com/watch?v=3wkmBDgpb34&amp;list=PLhL0fv9JyKMaWhaHmm21J6mgpp841zYYw).
@@ -279,5 +279,5 @@ Note: if you are not using a Spike Prime you can skip this step.
 - Click the On Button to start the Spike Prime arm. As the arm reaches each checkpoint, you should see the points added in Onshape as well.
 
 <p align="center">
-<img src="Documentation-Images/Checkpoints.gif">
+<img src="Documentation-Images/Checkpoints.gif" width="700", height="394">
 </p>
