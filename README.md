@@ -49,27 +49,19 @@ Note: If you have previously set up a Raspberry Pi and have a preferred method, 
 
   ```
   country=US
-
-  ctrl\_interface=DIR=/var/run/wpa\_supplicant
-
+  ctrl_interface=DIR=/var/run/wpa_supplicant
   GROUP=netdev
-
-  update\_config=1
+  update_config=1
 
   network={
-
-      ssid=&quot;your\_wifi\_ssid&quot;
-
-      scan\_ssid=1
-
-      psk=&quot;your\_wifi\_password&quot;
-
-      key\_mgmt=WPA-PSK
-
+      ssid="your_wifi_ssid"
+      scan_ssid=1
+      psk="your_wifi_password"
+      key_mgmt=WPA-PSK
   }
   ```
 
-  - Change the strings &quot;your\_wifi\_ssid&quot; to your Wi-Fi network&#39;s name and &quot;your\_wifi\_password&quot; to your Wi-Fi network&#39;s password.
+  - Change the strings &quot;your\_wifi\_ssid&quot; to your Wi-Fi network&#39;s name and &quot;your\_wifi\_password&quot; to your Wi-Fi network&#39;s password. Additionally, change the country if needed.
   - Save these two files and eject the SD card from your computer.
   - Insert the microSD card into your Raspberry Pi (see picture above for reference).
   - Provide power to the Raspberry Pi (MicroUSB for the 3 Series, USB-C for the 4 series).
