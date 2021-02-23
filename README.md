@@ -21,7 +21,7 @@
 - Click on the Choose OS button and select the Raspberry Pi OS (32-bit).
 
 <p align="center">
-<img src="Documentation-Images/Choose-OS.png" width="700" height="455">
+<img src="Documentation-Images/Choose-OS.png" width="700" height="454">
 </p>
 
 - Choose the SD card you want to flash the image to.
