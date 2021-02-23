@@ -39,7 +39,7 @@ Note: If you have previously set up a Raspberry Pi and have a preferred method, 
 <img src="Documentation-Images/SD-Card-Placement.jpg" width="248" height="334">
 </p>
 
-  - Provide power to the Raspberry Pi (MicroUSB for the 3 Series, USB-C for the 4 series).
+ - - Provide power to the Raspberry Pi (MicroUSB for the 3 Series, USB-C for the 4 series).
   - Connect your peripherals (keyboard, mouse, and display). You should see a screen resembling the desktop of a Linux machine. This is your Raspberry Pi&#39;s desktop.
   - Connect to your Wi-Fi network in the upper right-hand corner of the screen.
 - If you do not have one of those 3 peripherals, follow these steps:
