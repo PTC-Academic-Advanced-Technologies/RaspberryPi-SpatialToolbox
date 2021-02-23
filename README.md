@@ -47,7 +47,7 @@ Note: If you have previously set up a Raspberry Pi and have a preferred method, 
   - Create a new file called &quot;ssh&quot; with no extention. This will enable ssh into the Raspberry Pi by default.
   - Create a file named &quot;wpa\_supplicant.conf&quot;. In this file paste the following code:
 
-  '''
+  ```
   country=US
 
   ctrl\_interface=DIR=/var/run/wpa\_supplicant
@@ -67,7 +67,7 @@ Note: If you have previously set up a Raspberry Pi and have a preferred method, 
   &nbsp;&nbsp;&nbsp;&nbsp;key\_mgmt=WPA-PSK
 
   }
-  '''
+  ```
 
   - Change the strings &quot;your\_wifi\_ssid&quot; to your Wi-Fi network&#39;s name and &quot;your\_wifi\_password&quot; to your Wi-Fi network&#39;s password.
   - Save these two files and eject the SD card from your computer.
