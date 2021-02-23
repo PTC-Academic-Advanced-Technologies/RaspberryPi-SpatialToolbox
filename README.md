@@ -1,5 +1,5 @@
 <p align="center">
-![Checkpoints Working](Documentation-Images/Checkpoints.gif)
+<img src="Documentation-Images/Checkpoints.gif">
 </p>
 
 # **Table of Contents**
@@ -237,7 +237,7 @@ Note: if you are not using a Spike Prime you can skip this step.
   - If you are using the Spike Prime, make sure the Spike connects before you open the app.
 
 <p align="center">
-<img src="Documentation-Images/Draw-Image-Target.jpg" width="430" height="512"> <img src="Documentation-Images/Spike-Draw-Target.jpg" width="355" height="512">
+<img src="Documentation-Images/Draw-Image-Target.jpg" width="384" height="457"> <img src="Documentation-Images/Spike-Draw-Target.jpg" width="316" height="457">
 </p>
 
 - You should see three white cubes appear on the image target. One of the cubes is placed on the center of your image target. Another is placed at the origin for the checkpoints you will be placing. These two should be close to or exactly on top of each other.
@@ -279,5 +279,5 @@ Note: if you are not using a Spike Prime you can skip this step.
 - Click the On Button to start the Spike Prime arm. As the arm reaches each checkpoint, you should see the points added in Onshape as well.
 
 <p align="center">
-![Checkpoints Working](Documentation-Images/Checkpoints.gif)
+<img src="Documentation-Images/Checkpoints.gif">
 </p>
