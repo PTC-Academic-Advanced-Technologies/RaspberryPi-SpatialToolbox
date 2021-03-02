@@ -39,7 +39,7 @@
     "eases": "^1.0.8",
     "garnish": "^2.3.0",
     "less": "^2.7.2",
-    "three": "^0.89.0",
+    "three": ">=0.125.0",
     "three-orbit-controls": "^82.1.0",
     "watchify": "^3.11.1"
   },
