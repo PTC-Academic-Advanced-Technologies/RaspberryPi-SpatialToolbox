@@ -44,8 +44,16 @@ if (exports.enabled){
                 value: settings('objectName', objectName),
                 type: 'text',
                 default: objectName,
-                disabled: false,
+                disabled: true,
                 helpText: 'The name of the object that connects to this hardware interface.'
+            },
+	        // Onshape Url link to be parsed 
+            spikeOnshapeURL: {
+                value: settings('spikeOnshapeURL', "cad.onshape.com/documents/did/w/wid/e/eid"),
+                type: 'text',
+                default: 'cad.onshape.com/documents/did/w/wid/e/eid',
+                disabled: false,
+                helpText: 'Enter the link to your Onshape Document where you will be drawing.'
             },
             // X distance from image target to first joint
             imageToBaseX: {
@@ -81,30 +89,6 @@ if (exports.enabled){
                 disabled: false,
                 helpText: "The length (in millimeters) from the second rotating joint to the end effector."
             },
-            // documentId
-            spikeDocumentId: {
-                value: settings('spikeDocumentId', "did"),
-                type: 'text',
-                default: 'did',
-                disabled: false,
-                helpText: 'The document ID of the Onshape model. Found after /documents/ in the URL.'
-            },
-            // workspaceId
-            spikeWorkspaceId: {
-                value: settings('spikeWorkspaceId', 'wid'), 
-                type: 'text',
-                default: 'wid',
-                disabled: false,
-                helpText: 'The workspace ID of the Onshape model. Found after the /w/ in the URL.'
-            },
-            // elementId
-            spikeElementId: {  
-                value: settings('spikeElementId', 'eid'),
-                type: 'text',
-                default: 'eid',
-                disabled: false,
-                helpText: 'The element ID of the Onshape model. Found after the /e/ in the URL.'
-            },
             // Feature Name
             spikeFeatureName: {
                 value: settings('spikeFeatureName', 'VST Drawing'),
@@ -139,12 +123,17 @@ if (exports.enabled){
     imageToBaseY = exports.settings.imageToBaseY.value;
     link1Length = exports.settings.link1Length.value;
     link2Length = exports.settings.link2Length.value;
-    documentId = exports.settings.spikeDocumentId.value;
-    workspaceId = exports.settings.spikeWorkspaceId.value;
-    elementId = exports.settings.spikeElementId.value;
     featureName = exports.settings.spikeFeatureName.value;
     offsetX = exports.settings.spikeOnshapeOffsetX.value;
     offsetY = exports.settings.spikeOnshapeOffsetY.value;
+
+    // Get the entire URL link
+    onshapeUrl = exports.settings.spikeOnshapeURL.value;
+    onshapeUrl_object = onshapeUrl.split('/');
+    documentId = onshapeUrl_object[4]; 
+    workspaceId = onshapeUrl_object[6]; 
+    elementId = onshapeUrl_object[8]; 
+
 
     if (link1Length != 0 && link2Length != 0) {
         inverse.setLengths(imageToBaseX, imageToBaseY, link1Length, link2Length);

@@ -29,32 +29,16 @@ if (exports.enabled){
                 value: settings('objectName', objectName),
                 type: 'text',
                 default: objectName,
-                disabled: false,
+                disabled: true,
                 helpText: 'The name of the object that connects to this hardware interface.'
             },
-            // documentId
-            drawDocumentId: {
-                value: settings('drawDocumentId', "did"),
+	        // Onshape Url link to be parsed 
+            drawOnshapeURL: {
+                value: settings('drawOnshapeURL', "cad.onshape.com/documents/did/w/wid/e/eid"),
                 type: 'text',
-                default: 'did',
+                default: 'cad.onshape.com/documents/did/w/wid/e/eid',
                 disabled: false,
-                helpText: 'The document ID of the Onshape model. Found after /documents/ in the URL.'
-            },
-            // workspaceId
-            drawWorkspaceId: {
-                value: settings('drawWorkspaceId', 'wid'), 
-                type: 'text',
-                default: 'wid',
-                disabled: false,
-                helpText: 'The workspace ID of the Onshape model. Found after the /w/ in the URL.'
-            },
-            // elementId
-            drawElementId: {  
-                value: settings('drawElementId', 'eid'),
-                type: 'text',
-                default: 'eid',
-                disabled: false,
-                helpText: 'The element ID of the Onshape model. Found after the /e/ in the URL.'
+                helpText: 'Enter the link to your Onshape Document where you will be drawing.'
             },
             // Feature Name
             drawFeatureName: {
@@ -86,12 +70,16 @@ if (exports.enabled){
     // Get the settings that the user defined on localhost:8080
     objectName = exports.settings.drawName.value;
     console.log("draw: " + objectName)
-    documentId = exports.settings.drawDocumentId.value;
-    workspaceId = exports.settings.drawWorkspaceId.value;
-    elementId = exports.settings.drawElementId.value;
     featureName = exports.settings.drawFeatureName.value;
     offsetX = exports.settings.drawOnshapeOffsetX.value;
     offsetY = exports.settings.drawOnshapeOffsetY.value;
+    // Get the entire URL link
+    onshapeUrl = exports.settings.drawOnshapeURL.value;
+    onshapeUrl_object = onshapeUrl.split('/');
+    documentId = onshapeUrl_object[4]; 
+    workspaceId = onshapeUrl_object[6]; 
+    elementId = onshapeUrl_object[8]; 
+    // https://cad.onshape.com/documents/688d52d4b40fa464e65b9335/w/9399f9d1b4a559d90a2ac87a/e/c9a50713ea054cf8b1803b2c
 
     if (documentId != 'did' && workspaceId != 'wid' && elementId != 'eid') {
         draw.setParams(documentId, workspaceId, elementId, featureName);
