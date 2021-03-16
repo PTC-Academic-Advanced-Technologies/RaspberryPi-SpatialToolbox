@@ -25,7 +25,8 @@ var runMotors = true
 try {
     serial.openPort()
     setTimeout(() => {serial.sendFile('initialize.py')}, 10000) // CHANGED HERE --> Reverted the times back to original
-    setTimeout(() => {initializePorts()}, 15000) // CHANGED HERE --> Reverted the times back to original
+    setTimeout(() => {serial.sendFile('initialize2.py')}, 13000) // CHANGED HERE --> Reverted the times back to original
+    setTimeout(() => {initializePorts()}, 16000) // CHANGED HERE --> Reverted the times back to original
 } catch(e) {
     console.log('Spike Prime NOT connected')
 }
