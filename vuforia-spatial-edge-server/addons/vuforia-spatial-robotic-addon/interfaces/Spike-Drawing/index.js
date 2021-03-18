@@ -131,9 +131,16 @@ if (exports.enabled){
     // Get the entire URL link
     onshapeUrl = exports.settings.spikeOnshapeURL.value;
     onshapeUrl_object = onshapeUrl.split('/');
-    documentId = onshapeUrl_object[4]; 
-    workspaceId = onshapeUrl_object[6]; 
-    elementId = onshapeUrl_object[8]; 
+    if(onshapeUrl_object.length >= 9) {
+        documentId = onshapeUrl_object[4]; 
+        workspaceId = onshapeUrl_object[6]; 
+        elementId = onshapeUrl_object[8];
+    }
+    else if (onshapeUrl_object.length >= 7) {
+        documentId = onshapeUrl_object[2]; 
+        workspaceId = onshapeUrl_object[4]; 
+        elementId = onshapeUrl_object[6];
+    }
 
 
     if (link1Length != 0 && link2Length != 0) {

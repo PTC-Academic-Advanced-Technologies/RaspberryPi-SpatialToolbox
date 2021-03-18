@@ -76,9 +76,16 @@ if (exports.enabled){
     // Get the entire URL link
     onshapeUrl = exports.settings.drawOnshapeURL.value;
     onshapeUrl_object = onshapeUrl.split('/');
-    documentId = onshapeUrl_object[4]; 
-    workspaceId = onshapeUrl_object[6]; 
-    elementId = onshapeUrl_object[8]; 
+    if(onshapeUrl_object.length >= 9) {
+        documentId = onshapeUrl_object[4]; 
+        workspaceId = onshapeUrl_object[6]; 
+        elementId = onshapeUrl_object[8];
+    }
+    else if (onshapeUrl_object.length >= 7) {
+        documentId = onshapeUrl_object[2]; 
+        workspaceId = onshapeUrl_object[4]; 
+        elementId = onshapeUrl_object[6];
+    }
     // https://cad.onshape.com/documents/688d52d4b40fa464e65b9335/w/9399f9d1b4a559d90a2ac87a/e/c9a50713ea054cf8b1803b2c
 
     if (documentId != 'did' && workspaceId != 'wid' && elementId != 'eid') {
