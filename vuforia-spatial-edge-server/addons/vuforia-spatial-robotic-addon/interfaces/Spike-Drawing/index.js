@@ -21,6 +21,9 @@ var ports = ["none", "none", "none", "none", "none", "none"]
 var [motor1, motor2, motor3, distanceSensor, colorSensor, forceSensor] = ports
 var firstMotor, secondMotor, thirdMotor
 var runMotors = true
+let documentId = "did";
+let workspaceId = "wid";
+let elementId = "eid";
 
 try {
     serial.openPort()
@@ -130,6 +133,7 @@ if (exports.enabled){
 
     // Get the entire URL link
     onshapeUrl = exports.settings.spikeOnshapeURL.value;
+    console.log("spikeDraw thinks it is connected to: " + onshapeUrl);
     onshapeUrl_object = onshapeUrl.split('/');
     if(onshapeUrl_object.length >= 9) {
         documentId = onshapeUrl_object[4]; 

@@ -14,6 +14,9 @@ let inMotion = false;                   // When robot is moving
 let pathData = [];                      // List of paths with checkpoints
 let activeCheckpointName = null;        // Current active checkpoint
 var onshapeX, onshapeY;
+let documentId = "did";
+let workspaceId = "wid";
+let elementId = "eid";
 
 if (exports.enabled){
     // Code executed when your robotic addon is enabled
@@ -73,8 +76,10 @@ if (exports.enabled){
     featureName = exports.settings.drawFeatureName.value;
     offsetX = exports.settings.drawOnshapeOffsetX.value;
     offsetY = exports.settings.drawOnshapeOffsetY.value;
+
     // Get the entire URL link
     onshapeUrl = exports.settings.drawOnshapeURL.value;
+    console.log("draw thinks it is connected to: " + onshapeUrl);
     onshapeUrl_object = onshapeUrl.split('/');
     if(onshapeUrl_object.length >= 9) {
         documentId = onshapeUrl_object[4]; 
