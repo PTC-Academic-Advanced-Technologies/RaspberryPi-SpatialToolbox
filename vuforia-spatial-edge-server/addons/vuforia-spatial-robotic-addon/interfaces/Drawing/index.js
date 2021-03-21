@@ -72,13 +72,17 @@ if (exports.enabled){
 
     // Get the settings that the user defined on localhost:8080
     objectName = exports.settings.drawName.value;
-    console.log("draw: " + objectName)
+    console.log("draw objectName: " + objectName);
     featureName = exports.settings.drawFeatureName.value;
+    console.log("draw featureName: " + featureName);
     offsetX = exports.settings.drawOnshapeOffsetX.value;
+    console.log("draw offsetX: " + offsetX);
     offsetY = exports.settings.drawOnshapeOffsetY.value;
+    console.log("draw offsetY: " + offsetY);
 
     // Get the entire URL link
     onshapeUrl = exports.settings.drawOnshapeURL.value;
+    onshapeUrl = onshapeUrl.replace(/\n/g,'');
     console.log("draw thinks it is connected to: " + onshapeUrl);
     onshapeUrl_object = onshapeUrl.split('/');
     if(onshapeUrl_object.length >= 9) {

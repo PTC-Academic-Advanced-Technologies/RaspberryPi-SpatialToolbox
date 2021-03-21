@@ -122,22 +122,30 @@ if (exports.enabled){
 
     // Get the settings that the user defined on localhost:8080
     objectName = exports.settings.spikeDrawName.value;
-    console.log("spikeDraw: " + objectName)
+    console.log("spikeDraw objectName: " + objectName);
     imageToBaseX = exports.settings.imageToBaseX.value;
+    console.log("spikeDraw imageToBaseX: " + imageToBaseX);
     imageToBaseY = exports.settings.imageToBaseY.value;
+    console.log("spikeDraw imageToBaseY: " + imageToBaseY);
     link1Length = exports.settings.link1Length.value;
+    console.log("spikeDraw link1Length: " + link1Length);
     link2Length = exports.settings.link2Length.value;
+    console.log("spikeDraw link2Length: " + link2Length);
     featureName = exports.settings.spikeFeatureName.value;
+    console.log("spikeDraw featureName: " + featureName);
     offsetX = exports.settings.spikeOnshapeOffsetX.value;
+    console.log("spikeDraw offsetX: " + offsetX);
     offsetY = exports.settings.spikeOnshapeOffsetY.value;
+    console.log("spikeDraw offsetY: " + offsetY);
 
     // Get the entire URL link
     onshapeUrl = exports.settings.spikeOnshapeURL.value;
+    onshapeUrl = onshapeUrl.replace(/\n/g,'');
     console.log("spikeDraw thinks it is connected to: " + onshapeUrl);
     onshapeUrl_object = onshapeUrl.split('/');
     if(onshapeUrl_object.length >= 9) {
-        documentId = onshapeUrl_object[4]; 
-        workspaceId = onshapeUrl_object[6]; 
+        documentId = onshapeUrl_object[4];
+        workspaceId = onshapeUrl_object[6];
         elementId = onshapeUrl_object[8];
     }
     else if (onshapeUrl_object.length >= 7) {
