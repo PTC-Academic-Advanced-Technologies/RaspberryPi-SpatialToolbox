@@ -27,9 +27,9 @@ let elementId = "eid";
 
 try {
     serial.openPort()
-    setTimeout(() => {serial.sendFile('initialize.py')}, 10000) // CHANGED HERE --> Reverted the times back to original
-    setTimeout(() => {serial.sendFile('initialize2.py')}, 13000) // CHANGED HERE --> Reverted the times back to original
-    setTimeout(() => {initializePorts()}, 16000) // CHANGED HERE --> Reverted the times back to original
+    setTimeout(() => {serial.sendFile('initialize.py')}, 2000) // CHANGED HERE --> Reverted the times back to original
+    setTimeout(() => {serial.sendFile('initialize2.py')}, 4000) // CHANGED HERE --> Reverted the times back to original
+    setTimeout(() => {initializePorts()}, 5000) // CHANGED HERE --> Reverted the times back to original
 } catch(e) {
     console.log('Spike Prime NOT connected')
 }
@@ -394,7 +394,7 @@ function nodeReadCallback(data, checkpointIdx, pathIdx){
 // Gets the port ordering from the Spike Prime, which initialized itself
 function initializePorts() {
     sensorData = readSensor()
-    if (sensorData.includes('[') && sensorData.includes(',')) {
+    if (sensorData.includes('[') && sensorData.includes('motor')) {
         sensorData = sensorData.substring(1, sensorData.length - 2)
         sensorData = sensorData.replace(/'/g, '')
         sensorData = sensorData.replace(/ /g, '')
@@ -462,7 +462,7 @@ server.addEventListener("reset", function () {
 
 // Wait for the connection to be established with the Spike Prime before starting up
 server.addEventListener("initialize", function () {
-    if (exports.enabled) setTimeout(() => { startHardwareInterface() }, 20000)
+    if (exports.enabled) setTimeout(() => { startHardwareInterface() }, 7000)
 });
 
 // Stop motors on server shutdown
